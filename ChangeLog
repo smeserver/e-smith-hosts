@@ -2,3 +2,8 @@ Sun Jul 17 15:17:27 2005                           Shad Lords (slords)
 
 Mezzanine auto-imported e-smith-hosts from e-smith-hosts-1.13.1-04.src.rpm.
 ----------------------------------------------------------------------
+Sun Jul 17 15:21:16 2005                           Shad Lords (slords)
+
+Fix to ensure delete always returns status
+
+----------------------------------------------------------------------

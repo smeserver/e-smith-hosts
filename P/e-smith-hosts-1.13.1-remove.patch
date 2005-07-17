@@ -1,0 +1,13 @@
+diff -Nur -x '*.orig' -x '*.rej' e-smith-hosts-1.13.1/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/hostentries.pm mezzanine_patched_e-smith-hosts-1.13.1/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/hostentries.pm
+--- e-smith-hosts-1.13.1/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/hostentries.pm	2005-07-17 15:19:41.125427224 -0600
++++ mezzanine_patched_e-smith-hosts-1.13.1/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/hostentries.pm	2005-07-17 15:19:33.011660704 -0600
+@@ -551,8 +551,8 @@
+             $self->set_status_message('SUCCESSFULLY_DELETED');
+             return;
+         }
+-        $self->set_status_message('ERROR_WHILE_DELETING_HOST');
+     }
++    $self->set_status_message('ERROR_WHILE_DELETING_HOST');
+ }
+ 
+ =head2 lexicon_params()
