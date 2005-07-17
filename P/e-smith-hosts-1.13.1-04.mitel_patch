@@ -1,0 +1,405 @@
+Index: e-smith-hosts/e-smith-hosts.spec
+diff -u e-smith-hosts/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/hostentries:1.10 e-smith-hosts/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/hostentries:1.11
+--- e-smith-hosts/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/hostentries:1.10	Thu Feb 19 14:34:40 2004
++++ e-smith-hosts/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/hostentries	Thu Jul  7 12:51:22 2005
+@@ -35,15 +35,6 @@
+         </trans>
+     </entry>
+     <entry>
+-        <base>ERROR_DURING_REGISTRATION_OF_SERVICE_DOMAIN</base>
+-        <trans>
+-            <![CDATA[
+-            An error occured during registration of the service domain.
+-            Click <A HREF="dns">here</A> for details.
+-            ]]>
+-        </trans>
+-    </entry>
+-    <entry>
+         <base>NAME</base>
+         <trans>
+             Hostname
+@@ -126,31 +117,6 @@
+         </trans>
+     </entry>
+     <entry>
+-        <base>CURRENT_HOSTNAMES_FOR_VIRTUAL_DOMAIN</base>
+-        <trans>
+-            Current list of hostnames for {$virtualDomainName}
+-        </trans>
+-    </entry>
+-    <entry>
+-        <base>NO_HOSTNAMES_FOR_VIRTUAL_DOMAIN</base>
+-        <trans>
+-            There are no hostnames in the system for {$virtualDomainName}.
+-        </trans>
+-    </entry>
+-    <entry>
+-        <base>PUBLISH_GLOBALLY_NOT_SUBSCRIBED</base>
+-        <trans>
+-            <![CDATA[
+-            The ServiceLink DNS configuration and
+-            hosting service provides the ability to automatically make
+-            hostnames available
+-            throughout the Internet.<br /> To activate this server for
+-            ServiceLink, click
+-            on the <A HREF="service_status">Status</A> panel.
+-            ]]>
+-        </trans>
+-    </entry>
+-    <entry>
+         <base>STATIC_HOST_MESSAGE</base>
+         <trans>
+             - This host represents your system name and cannot be modified
+@@ -161,12 +127,6 @@
+         <base>CREATE_LOCAL_HOST_TITLE</base>
+         <trans>
+             Create a new hostname for this server</trans>
+-    </entry>
+-    <entry>
+-        <base>PUBLISH_GLOBALLY</base>
+-        <trans>
+-            Publish globally?
+-        </trans>
+     </entry>
+     <entry>
+         <base>CREATE</base>
+Index: e-smith-hosts/root/etc/e-smith/locale/es/etc/e-smith/web/functions/hostentries
+diff -u e-smith-hosts/root/etc/e-smith/locale/es/etc/e-smith/web/functions/hostentries:1.3 e-smith-hosts/root/etc/e-smith/locale/es/etc/e-smith/web/functions/hostentries:1.4
+--- e-smith-hosts/root/etc/e-smith/locale/es/etc/e-smith/web/functions/hostentries:1.3	Fri Jan  9 12:14:17 2004
++++ e-smith-hosts/root/etc/e-smith/locale/es/etc/e-smith/web/functions/hostentries	Thu Jul  7 12:51:22 2005
+@@ -32,14 +32,6 @@
+         </trans>
+     </entry>
+     <entry>
+-        <base>ERROR_DURING_REGISTRATION_OF_SERVICE_DOMAIN</base>
+-        <trans>
+-            <![CDATA[
+-            Ocurrió un error durante el registro del dominio del servicio. Haga clic <A HREF="dns">aquí</A> para obtener detalles.
+-            ]]>
+-        </trans>
+-    </entry>
+-    <entry>
+         <base>NAME</base>
+         <trans>
+             Nombre de computadora central
+@@ -122,26 +114,6 @@
+         </trans>
+     </entry>
+     <entry>
+-        <base>CURRENT_HOSTNAMES_FOR_VIRTUAL_DOMAIN</base>
+-        <trans>
+-            Lista actual de nombres de computadora central para {$virtualDomainName}.
+-        </trans>
+-    </entry>
+-    <entry>
+-        <base>NO_HOSTNAMES_FOR_VIRTUAL_DOMAIN</base>
+-        <trans>
+-            No hay nombres de computadora central en el sistema para {$virtualDomainName}.
+-        </trans>
+-    </entry>
+-    <entry>
+-        <base>PUBLISH_GLOBALLY_NOT_SUBSCRIBED</base>
+-        <trans>
+-            <![CDATA[
+-            La configuración DNS y el servicio de alojamiento de ServiceLink permiten disponer automáticamente de nombres de computadora central a través de Internet.<BR /> Para activar este servidor para ServiceLink, haga clic en el panel <A HREF="service_status">Estado</A>.
+-            ]]>
+-        </trans>
+-    </entry>
+-    <entry>
+         <base>STATIC_HOST_MESSAGE</base>
+         <trans>
+             - Esta computadora central representa su nombre de sistema y no se puede modificar o eliminar.
+@@ -153,12 +125,6 @@
+             Crear un nuevo nombre de computadora central para este servidor</trans>
+     </entry>
+     <entry>
+-        <base>PUBLISH_GLOBALLY</base>
+-        <trans>
+-            ¿Publicar globalmente?
+-        </trans>
+-    </entry>
+-    <entry>
+         <base>CREATE</base>
+         <trans>
+             Crear
+@@ -277,18 +243,6 @@
+         <base>DOMAIN</base>
+         <trans>
+             Dominio
+-        </trans>
+-    </entry>
+-    <entry>
+-        <base>PUBLISH_GLOBALLY_LABEL</base>
+-        <trans>
+-            Publicar globalmente
+-        </trans>
+-    </entry>
+-    <entry>
+-        <base>PUBLISH_GLOBALLY_SUBSCRIBED</base>
+-        <trans>
+-            Si selecciona "publicar globalmente", este nombre de computadora central quedará automáticamente disponible a través de Internet. 
+         </trans>
+     </entry>
+     <entry>
+Index: e-smith-hosts/root/etc/e-smith/locale/fr/etc/e-smith/web/functions/hostentries
+diff -u e-smith-hosts/root/etc/e-smith/locale/fr/etc/e-smith/web/functions/hostentries:1.10 e-smith-hosts/root/etc/e-smith/locale/fr/etc/e-smith/web/functions/hostentries:1.11
+--- e-smith-hosts/root/etc/e-smith/locale/fr/etc/e-smith/web/functions/hostentries:1.10	Fri Jan  9 12:14:17 2004
++++ e-smith-hosts/root/etc/e-smith/locale/fr/etc/e-smith/web/functions/hostentries	Thu Jul  7 12:51:22 2005
+@@ -31,15 +31,6 @@
+         </trans>
+     </entry>
+     <entry>
+-        <base>ERROR_DURING_REGISTRATION_OF_SERVICE_DOMAIN</base>
+-        <trans>
+-            <![CDATA[
+-            Enregistrement, avec erreur, du domaine du service.
+-            Cliquez <A HREF="dns">ici</A> pour les détails.
+-            ]]>
+-        </trans>
+-    </entry>
+-    <entry>
+         <base>NAME</base>
+         <trans>
+             Nom d'hôte
+@@ -118,31 +109,6 @@
+         </trans>
+     </entry>
+     <entry>
+-        <base>CURRENT_HOSTNAMES_FOR_VIRTUAL_DOMAIN</base>
+-        <trans>
+-            Liste actuelle des noms d'hôte pour {$virtualDomainName}
+-        </trans>
+-    </entry>
+-    <entry>
+-        <base>NO_HOSTNAMES_FOR_VIRTUAL_DOMAIN</base>
+-        <trans>
+-            Il n'y a aucun nom d'hôte dans le système pour {$virtualDomainName}.
+-        </trans>
+-    </entry>
+-    <entry>
+-        <base>PUBLISH_GLOBALLY_NOT_SUBSCRIBED</base>
+-        <trans>
+-            <![CDATA[
+-            Le service de configuration et d'hébergement ServiceLink DNS 
+-            permet d'offrir automatiquement des noms d'hôte
+-            dans tout le réseau Internet.<br /> 
+-            Afin d'activer ce serveur pour ServiceLink, 
+-            cliquez sur le panneau
+-            <A HREF="service_status">État</A>.
+-            ]]>
+-        </trans>
+-    </entry>
+-    <entry>
+         <base>STATIC_HOST_MESSAGE</base>
+         <trans>
+             - Cet hôte représente votre nom de système et ne peut 
+@@ -153,12 +119,6 @@
+         <base>CREATE_LOCAL_HOST_TITLE</base>
+         <trans>
+             Créez un nom d'hôte pour ce serveur 
+-        </trans>
+-    </entry>
+-    <entry>
+-        <base>PUBLISH_GLOBALLY</base>
+-        <trans>
+-            Publier globalement?
+         </trans>
+     </entry>
+     <entry>
+Index: e-smith-hosts/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/hostentries.pm
+diff -u e-smith-hosts/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/hostentries.pm:1.48 e-smith-hosts/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/hostentries.pm:1.49
+--- e-smith-hosts/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/hostentries.pm:1.48	Mon Mar  7 18:38:23 2005
++++ e-smith-hosts/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/hostentries.pm	Thu Jul  7 12:51:22 2005
+@@ -60,7 +60,9 @@
+     must_be_local
+ );
+ 
+-our $VERSION = sprintf '%d.%03d', q$Revision: 1.47 $ =~ /: (\d+).(\d+)/;
++our $VERSION = sprintf '%d.%03d', q$Revision: 1.48 $ =~ /: (\d+).(\d+)/;
++
++our $db = esmith::ConfigDB->open();
+ 
+ =pod 
+ 
+@@ -124,8 +126,6 @@
+ { 
+     my $self = shift;                                                                                      
+     my $q = $self->{cgi};                                                                                  
+-    my $db = esmith::ConfigDB->open();
+-
+     unless ($db)
+     {
+         $self->error('UNABLE_TO_OPEN_CONFIGDB', 'First');
+@@ -144,40 +144,28 @@
+ 
+     my $hosts_db = esmith::HostsDB->open();
+ 
+-    foreach my $d (@{$self->domains_list()})
+-    {
+-        print $q->h3($self->localise('CURRENT_HOSTNAMES_FOR_DOMAIN', {domain => $d})),"\n"; 
+-
+-        if (my @hosts = $hosts_db->get_hosts_by_domain($d)) 
+-        {
+-            print $q->start_table ({-CLASS => "sme-noborders"}),"\n"; 
+-            print $q->start_Tr,"\n";
+-            print $q->start_table ({-CLASS => "sme-border"}),"\n"; 
+-            print $q->Tr (esmith::cgi::genSmallCell($q, $self->localise('HOSTNAME'),"header"),
+-            esmith::cgi::genSmallCell($q, $self->localise('VISIBILITY'),"header"),
+-            esmith::cgi::genSmallCell($q, $self->localise('LOCATION'),"header"),
+-            esmith::cgi::genSmallCell($q, $self->localise('LOCAL_IP'),"header"),
+-            esmith::cgi::genSmallCell($q, $self->localise('GLOBAL_IP'),"header"),
+-            esmith::cgi::genSmallCell($q, $self->localise('ETHERNET_ADDRESS'),"header"),
+-            esmith::cgi::genSmallCell($q, $self->localise('ACTION'),"header",2));
+-            $self->print_host_row($_) foreach @hosts;
+-            print $q->end_table, "\n";
+-        } 
+-        else 
+-        {
+-            print $self->localise('NO_HOSTS_FOR_THIS_DOMAIN');
+-        }
+-
+-    }
++    my $d = $db->get_value('DomainName');
++    print $q->h3($self->localise('CURRENT_HOSTNAMES_FOR_DOMAIN', {domain => $d})),"\n"; 
+ 
+-    if ($self->dns_subscribed()) {
+-        print qq(<p> (*) - ) 
+-        . $self->localise('PUBLISH_GLOBALLY_NOT_SUBSCRIBED') 
+-        . qq(</p>\n);
++    if (my @hosts = $hosts_db->get_hosts_by_domain($d)) 
++    {
++	print $q->start_table ({-CLASS => "sme-noborders"}),"\n"; 
++	print $q->start_Tr,"\n";
++	print $q->start_table ({-CLASS => "sme-border"}),"\n"; 
++	print $q->Tr (esmith::cgi::genSmallCell($q, $self->localise('HOSTNAME'),"header"),
++	esmith::cgi::genSmallCell($q, $self->localise('LOCATION'),"header"),
++	esmith::cgi::genSmallCell($q, $self->localise('IP_ADDRESS'),"header"),
++	esmith::cgi::genSmallCell($q, $self->localise('ETHERNET_ADDRESS'),"header"),
++	esmith::cgi::genSmallCell($q, $self->localise('ACTION'),"header",2));
++	$self->print_host_row($_) foreach @hosts;
++	print $q->end_table, "\n";
++    } 
++    else 
++    {
++	print $self->localise('NO_HOSTS_FOR_THIS_DOMAIN');
+     }
+ 
+     return undef;
+-
+ }
+ 
+ =head2 $panel->print_table_headers()
+@@ -201,13 +189,17 @@
+ {
+     my ($self,$host_record) = @_;
+     my $q = $self->{cgi};                                                                                  
++    my $ht = $host_record->prop('HostType');
++    my $ip =
++	($ht eq 'Self') ? $db->get_value('LocalIP') :
++	    ($ht eq 'Remote') ? $host_record->prop('ExternalIP') :
++		$host_record->prop('InternalIP');
++
+     print $q->start_Tr;
+ 
+     $self->print_td($host_record->key());
+-    $self->print_td($self->localise($host_record->prop('Visibility')) || "&nbsp;");
+     $self->print_td($self->localise($host_record->prop('HostType')) || "&nbsp;");
+-    $self->print_td($host_record->prop('InternalIP') || "&nbsp;");
+-    $self->print_td($host_record->prop('ExternalIP') || "&nbsp;");
++    $self->print_td($ip);
+     $self->print_td($host_record->prop('MACAddress') || "&nbsp;");
+     my $static = $host_record->prop('static') || "no";
+     if ($static ne 'yes') {
+@@ -252,8 +244,6 @@
+         global_ip        => $oldprops{ExternalIP},
+         ethernet_address => $oldprops{MACAddress},
+         hosttype         => $oldprops{HostType},
+-        publish_globally => $oldprops{Visibility} eq "Global" ? 1 : 0
+-
+     );
+ 
+     return $self->props_to_query_string(\%props);
+@@ -329,25 +319,7 @@
+ }
+ 
+ sub print_global_ip_field {
+-    my $self = shift;
+-    my $q = $self->{cgi};
+-
+-    my $g = $self->{cgi}->param('publish_globally');
+-    my $gip = $self->{cgi}->param('global_ip');
+-    $self->debug_msg("publish_globally param is $g");
+-    $self->debug_msg("global_ip param is $gip");
+-    if ($g) {
+-        print qq(<tr><td colspan=2>) . $self->localise('GLOBAL_IP_DESCRIPTION') 
+-        . qq(</td></tr>);
+-        print qq(<tr><td>) . $self->localise('GLOBAL_IP') . qq(</td>\n);
+-        print qq(<td><input type="text" value="$gip" name="global_ip"></td></tr>\n);
+-    }
+-    print $q->hidden({-name => 'publish_globally',
+-        -value => $g});
+-
+-    print qq(</tr>\n);
+     return undef;
+-
+ }
+ 
+ =head2 mac_address_or_blank
+@@ -454,24 +426,15 @@
+         $self->{cgi}->delete('ethernet_address');
+     }
+ 
+-    unless ($self->cgi->param('publish_globally'))
+-    {
+-        $self->{cgi}->delete('global_ip');
+-    }
+-
+     if ($type eq "Remote")
+     {
+         $self->{cgi}->delete('ethernet_address');
+     }
+ 
+     foreach my $f (qw( name domain hosttype local_ip global_ip
+-    publish_globally ethernet_address) ) {
++    ethernet_address) ) {
+         my $val = $self->cgi->param($f) || '';
+         $self->debug_msg("looping on param $f, val is $val");
+-        if ($f eq "publish_globally") 
+-        {
+-            $val = $val ? $self->localise("YES") : $self->localise("NO");
+-        }
+         print $q->Tr (esmith::cgi::genSmallCell($q, $self->localise(uc($f)),"normal"),
+         esmith::cgi::genSmallCell($q, $val,"normal")) if $val;
+     }
+@@ -524,8 +487,6 @@
+ 
+     my %props = (
+         type        => 'host',
+-        Visibility  => $self->cgi->param('publish_globally') ?  "Global" 
+-        : "Local",
+         HostType    => $self->cgi->param('hosttype') || "",
+         ExternalIP  => $self->cgi->param('global_ip') || "",
+         InternalIP  => $self->cgi->param('local_ip') || "",
+@@ -673,11 +634,10 @@
+ {
+     my $self = shift;
+     my $address = shift;
+-    my $d = esmith::ConfigDB->open_ro;
+-    my $status = $d->get('dhcpd')->prop('status') || "disabled";
++    my $status = $db->get('dhcpd')->prop('status') || "disabled";
+     return "OK" unless $status eq "enabled";
+-    my $start = $d->get('dhcpd')->prop('start');
+-    my $end = $d->get('dhcpd')->prop('end');
++    my $start = $db->get('dhcpd')->prop('start');
++    my $end = $db->get('dhcpd')->prop('end');
+     return (esmith::util::IPquadToAddr($start)
+         <= esmith::util::IPquadToAddr($address)
+         &&
+@@ -721,7 +681,6 @@
+     my $q = $self->{cgi};
+     my $localip = $q->param('local_ip');
+     
+-    my $db = esmith::ConfigDB->open_ro();
+     my $server_localip = $db->get_value('LocalIP') || '';
+     my $server_gateway = $db->get_value('GatewayIP') || '';
+     my $server_extip = $db->get_value('ExternalIP') || '';

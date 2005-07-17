@@ -1,0 +1,37 @@
+Index: e-smith-hosts/createlinks
+diff -u e-smith-hosts/createlinks:1.8 e-smith-hosts/createlinks:1.9
+--- e-smith-hosts/createlinks:1.8	Tue Mar  8 20:06:14 2005
++++ e-smith-hosts/createlinks	Thu Apr 14 18:55:46 2005
+@@ -21,7 +21,7 @@
+ foreach $event ( qw(host-create host-delete host-modify) )
+ {
+     safe_symlink("restart", "root/etc/e-smith/events/$event/services2adjust/dhcpd");
+-    event_link("tinydns-conf", $event, "55");
++    safe_symlink("sigusr1", "root/etc/e-smith/events/$event/services2adjust/tinydns");
+ }
+ 
+ #--------------------------------------------------
+@@ -29,8 +29,9 @@
+ #--------------------------------------------------
+ $event = "bootstrap-console-save";
+ 
+-event_link("conf-migrate-hosts", $event , "06");
+-event_link("conf-hostsdb", $event , "07");
++event_link("conf-migrate-hosts", $event , "02");
++event_link("conf-hostsdb", $event , "03");
++event_link("delete-hosts", $event, "04");
+ 
+ #--------------------------------------------------
+ # actions for console-save event
+@@ -49,7 +50,6 @@
+ #--------------------------------------------------
+ # actions for domain-delete event
+ #--------------------------------------------------
+-foreach $event ( qw(domain-delete bootstrap-console-save) )
+-{
+-    event_link("delete-hosts", $event, "30");
+-}
++$event = "domain-delete";
++
++event_link("delete-hosts", $event, "30");
+Index: e-smith-hosts/e-smith-hosts.spec
