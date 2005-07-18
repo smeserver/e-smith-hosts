@@ -12,3 +12,8 @@ Sun Jul 17 22:30:41 2005                           Shad Lords (slords)
 Setup for db move
 
 ----------------------------------------------------------------------
+Mon Jul 18 01:30:32 2005                       Gordon Rowell (gordonr)
+
+Simplify delete-hosts prior to rename/reuse
+
+----------------------------------------------------------------------
