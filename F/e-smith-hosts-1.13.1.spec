@@ -1,7 +1,7 @@
 Summary: e-smith module for managing hosts entries
 Name: e-smith-hosts
 %define version 1.13.1
-%define release 04sme03
+%define release 04sme05
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -14,6 +14,8 @@ Patch2: e-smith-hosts-1.13.1-04.mitel_patch
 Patch3: e-smith-hosts-1.13.1-remove.patch
 Patch4: e-smith-hosts-1.13.1-dbmoved.patch
 Patch5: e-smith-hosts-1.13.1-simplifydeletehosts.patch
+Patch6: e-smith-hosts-1.13.1-renamedeletehosts.patch
+Patch7: e-smith-hosts-1.13.1-purgepseudonyms.patch3
 Packager: e-smith developers <bugs@e-smith.com>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base
@@ -28,6 +30,16 @@ e-smith module to allow the configuration of the hosts database, which is
 used to build the DNS and DHCP configuration.
 
 %changelog
+* Mon Jul 18 2005 Gordon Rowell <gordonr@gormand.com.au>
+- [1.13.1-04sme05]
+- Purge user@domain pseudonyms for deleted domains. Possibly more
+  correctly placed in e-smith-email. [SF: 1193570]
+
+* Mon Jul 18 2005 Gordon Rowell <gordonr@gormand.com.au>
+- [1.13.1-04sme04]
+- Rename delete-hosts to purge-domain so we can use it for other cleanups
+  [SF: 1193570]
+
 * Mon Jul 18 2005 Gordon Rowell <gordonr@gormand.com.au>
 - [1.13.1-04sme03]
 - Simplify delete-hosts action script prior to rename [SF: 1193570]
@@ -904,6 +916,8 @@ mkdir -p root/etc/e-smith/web/panels/manager/cgi-bin
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
+%patch6 -p1
+%patch7 -p1
 
 %build
 perl createlinks
