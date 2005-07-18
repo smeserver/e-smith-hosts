@@ -1,0 +1,12 @@
+diff -Nur -x '*.orig' -x '*.rej' e-smith-hosts-1.13.1/root/etc/e-smith/events/actions/create-default-hosts mezzanine_patched_e-smith-hosts-1.13.1/root/etc/e-smith/events/actions/create-default-hosts
+--- e-smith-hosts-1.13.1/root/etc/e-smith/events/actions/create-default-hosts	2005-07-18 13:38:53.011042368 -0600
++++ mezzanine_patched_e-smith-hosts-1.13.1/root/etc/e-smith/events/actions/create-default-hosts	2005-07-18 13:38:35.481707232 -0600
+@@ -33,7 +33,7 @@
+ tie %conf, 'esmith::config';
+ 
+ use esmith::HostsDB;
+-my $hdb = esmith::HostsDB->open_ro();
++my $hdb = esmith::HostsDB->open();
+ 
+ #------------------------------------------------------------
+ # Populate the hosts database with default entries for a given

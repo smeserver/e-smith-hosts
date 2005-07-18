@@ -28,3 +28,8 @@ Purge user@domain pseudonyms for deleted domains. Probably more
 appropriately placed in e-smith-email, but even better would be 
 as a set of migrate/cleanout fragments.
 ----------------------------------------------------------------------
+Mon Jul 18 13:40:57 2005                           Shad Lords (slords)
+
+Remove readonly so hostsdb gets created
+
+----------------------------------------------------------------------
