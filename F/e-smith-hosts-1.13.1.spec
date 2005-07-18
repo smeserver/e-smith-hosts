@@ -1,7 +1,7 @@
 Summary: e-smith module for managing hosts entries
 Name: e-smith-hosts
 %define version 1.13.1
-%define release 04sme01
+%define release 04sme02
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -12,6 +12,7 @@ Patch0: e-smith-hosts-1.13.1-02.mitel_patch
 Patch1: e-smith-hosts-1.13.1-03.mitel_patch
 Patch2: e-smith-hosts-1.13.1-04.mitel_patch
 Patch3: e-smith-hosts-1.13.1-remove.patch
+Patch4: e-smith-hosts-1.13.1-dbmoved.patch
 Packager: e-smith developers <bugs@e-smith.com>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base
@@ -26,6 +27,10 @@ e-smith module to allow the configuration of the hosts database, which is
 used to build the DNS and DHCP configuration.
 
 %changelog
+* Sun Jul 17 2005 Shad L. Lords <slords@mail.com>
+- [1.13.1-04sme02]
+- Preliminary patches to move db
+
 * Sun Jul 17 2005 Shad L. Lords <slords@mail.com>
 - [1.13.1-04sme01]
 - Fix to ensure panel returns status [SF: 1200284]
@@ -892,6 +897,7 @@ mkdir -p root/etc/e-smith/web/panels/manager/cgi-bin
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
 
 %build
 perl createlinks
