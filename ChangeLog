@@ -33,3 +33,8 @@ Mon Jul 18 13:40:57 2005                           Shad Lords (slords)
 Remove readonly so hostsdb gets created
 
 ----------------------------------------------------------------------
+Mon Jul 18 16:21:43 2005                           Shad Lords (slords)
+
+Fix host migration code
+
+----------------------------------------------------------------------

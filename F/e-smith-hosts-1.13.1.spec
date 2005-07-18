@@ -1,7 +1,7 @@
 Summary: e-smith module for managing hosts entries
 Name: e-smith-hosts
 %define version 1.13.1
-%define release 04sme06
+%define release 04sme07
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -17,6 +17,7 @@ Patch5: e-smith-hosts-1.13.1-simplifydeletehosts.patch
 Patch6: e-smith-hosts-1.13.1-renamedeletehosts.patch
 Patch7: e-smith-hosts-1.13.1-purgepseudonyms.patch3
 Patch8: e-smith-hosts-1.13.1-readonly.patch
+Patch9: e-smith-hosts-1.13.1-migrate.patch
 Packager: e-smith developers <bugs@e-smith.com>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base
@@ -32,7 +33,11 @@ used to build the DNS and DHCP configuration.
 
 %changelog
 * Mon Jul 18 2005 Shad L. Lords <slords@mail.com>
-- [1.13.1-04sme05]
+- [1.13.1-04sme07]
+- Fix host migration code
+
+* Mon Jul 18 2005 Shad L. Lords <slords@mail.com>
+- [1.13.1-04sme06]
 - Turn readonly off so hosts db gets created
 
 * Mon Jul 18 2005 Gordon Rowell <gordonr@gormand.com.au>
@@ -924,6 +929,7 @@ mkdir -p root/etc/e-smith/web/panels/manager/cgi-bin
 %patch6 -p1
 %patch7 -p1
 %patch8 -p1
+%patch9 -p1
 
 %build
 perl createlinks
