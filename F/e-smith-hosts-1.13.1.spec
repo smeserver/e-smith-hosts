@@ -1,7 +1,7 @@
 Summary: e-smith module for managing hosts entries
 Name: e-smith-hosts
 %define version 1.13.1
-%define release 04sme02
+%define release 04sme03
 Version: %{version}
 Release: %{release}
 License: GPL
