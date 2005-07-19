@@ -1,0 +1,65 @@
+diff -Nur -x '*.orig' -x '*.rej' e-smith-hosts-1.13.1/root/etc/e-smith/web/functions/hostentries mezzanine_patched_e-smith-hosts-1.13.1/root/etc/e-smith/web/functions/hostentries
+--- e-smith-hosts-1.13.1/root/etc/e-smith/web/functions/hostentries	2004-02-19 13:05:49.000000000 -0700
++++ mezzanine_patched_e-smith-hosts-1.13.1/root/etc/e-smith/web/functions/hostentries	2005-07-19 00:44:54.547911176 -0600
+@@ -93,8 +93,6 @@
+             value='Self'>
+             <label>LOCATION</label>
+         </field>
+-        <subroutine src="visibility_msg()" />
+-        <subroutine src="publish_checkbox()" />
+         <subroutine src="print_button('NEXT')" />
+     </page>
+     <page name="Remove" pre-event="turn_off_buttons()" post-event="remove()">
+diff -Nur -x '*.orig' -x '*.rej' e-smith-hosts-1.13.1/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/hostentries.pm mezzanine_patched_e-smith-hosts-1.13.1/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/hostentries.pm
+--- e-smith-hosts-1.13.1/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/hostentries.pm	2005-07-19 00:45:19.104734736 -0600
++++ mezzanine_patched_e-smith-hosts-1.13.1/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/hostentries.pm	2005-07-19 00:35:40.317441088 -0600
+@@ -144,27 +144,30 @@
+ 
+     my $hosts_db = esmith::HostsDB->open();
+ 
+-    my $d = $db->get_value('DomainName');
+-    print $q->h3($self->localise('CURRENT_HOSTNAMES_FOR_DOMAIN', {domain => $d})),"\n"; 
+-
+-    if (my @hosts = $hosts_db->get_hosts_by_domain($d)) 
+-    {
+-	print $q->start_table ({-CLASS => "sme-noborders"}),"\n"; 
+-	print $q->start_Tr,"\n";
+-	print $q->start_table ({-CLASS => "sme-border"}),"\n"; 
+-	print $q->Tr (esmith::cgi::genSmallCell($q, $self->localise('HOSTNAME'),"header"),
+-	esmith::cgi::genSmallCell($q, $self->localise('LOCATION'),"header"),
+-	esmith::cgi::genSmallCell($q, $self->localise('IP_ADDRESS'),"header"),
+-	esmith::cgi::genSmallCell($q, $self->localise('ETHERNET_ADDRESS'),"header"),
+-	esmith::cgi::genSmallCell($q, $self->localise('ACTION'),"header",2));
+-	$self->print_host_row($_) foreach @hosts;
+-	print $q->end_table, "\n";
+-    } 
+-    else 
++    foreach my $d (@{$self->domains_list()})
+     {
+-	print $self->localise('NO_HOSTS_FOR_THIS_DOMAIN');
+-    }
++        print $q->h3($self->localise('CURRENT_HOSTNAMES_FOR_DOMAIN', {domain => $d})),"\n";
+ 
++        if (my @hosts = $hosts_db->get_hosts_by_domain($d))
++        {
++            print $q->start_table ({-CLASS => "sme-noborders"}),"\n";
++            print $q->start_Tr,"\n";
++            print $q->start_table ({-CLASS => "sme-border"}),"\n";
++            print $q->Tr (esmith::cgi::genSmallCell($q, $self->localise('HOSTNAME'),"header"),
++            esmith::cgi::genSmallCell($q, $self->localise('VISIBILITY'),"header"),
++            esmith::cgi::genSmallCell($q, $self->localise('LOCATION'),"header"),
++            esmith::cgi::genSmallCell($q, $self->localise('LOCAL_IP'),"header"),
++            esmith::cgi::genSmallCell($q, $self->localise('GLOBAL_IP'),"header"),
++            esmith::cgi::genSmallCell($q, $self->localise('ETHERNET_ADDRESS'),"header"),
++            esmith::cgi::genSmallCell($q, $self->localise('ACTION'),"header",2));
++            $self->print_host_row($_) foreach @hosts;
++            print $q->end_table, "\n";
++        }
++        else
++        {
++            print $self->localise('NO_HOSTS_FOR_THIS_DOMAIN');
++        }
++    }
+     return undef;
+ }
+ 
