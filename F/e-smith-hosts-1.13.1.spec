@@ -1,7 +1,7 @@
 Summary: e-smith module for managing hosts entries
 Name: e-smith-hosts
 %define version 1.13.1
-%define release 04sme07
+%define release 07
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -11,13 +11,9 @@ Source: %{name}-%{version}.tar.gz
 Patch0: e-smith-hosts-1.13.1-02.mitel_patch
 Patch1: e-smith-hosts-1.13.1-03.mitel_patch
 Patch2: e-smith-hosts-1.13.1-04.mitel_patch
-Patch3: e-smith-hosts-1.13.1-remove.patch
-Patch4: e-smith-hosts-1.13.1-dbmoved.patch
-Patch5: e-smith-hosts-1.13.1-simplifydeletehosts.patch
-Patch6: e-smith-hosts-1.13.1-renamedeletehosts.patch
-Patch7: e-smith-hosts-1.13.1-purgepseudonyms.patch3
-Patch8: e-smith-hosts-1.13.1-readonly.patch
-Patch9: e-smith-hosts-1.13.1-migrate.patch
+Patch3: e-smith-hosts-1.13.1-05.mitel_patch
+Patch4: e-smith-hosts-1.13.1-06.mitel_patch
+Patch5: e-smith-hosts-1.13.1-07.mitel_patch
 Packager: e-smith developers <bugs@e-smith.com>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base
@@ -32,35 +28,19 @@ e-smith module to allow the configuration of the hosts database, which is
 used to build the DNS and DHCP configuration.
 
 %changelog
-* Mon Jul 18 2005 Shad L. Lords <slords@mail.com>
-- [1.13.1-04sme07]
-- Fix host migration code
+* Mon Jul 18 2005 Charlie Brady <charlieb@e-smith.com>
+- [1.13.1-07]
+- Greatly simplify delete-hosts, and rename to purge-domain. Purge user@domain
+  pseudonyms for deleted domains. [SF: 1193570 (Gordon)]
 
-* Mon Jul 18 2005 Shad L. Lords <slords@mail.com>
-- [1.13.1-04sme06]
-- Turn readonly off so hosts db gets created
+* Mon Jul 18 2005 Charlie Brady <charlieb@e-smith.com>
+- [1.13.1-06]
+- Update to current db access APIs, in readiness for move of dbs to private
+  directory. [SF: 1216546 (Shad)]
 
-* Mon Jul 18 2005 Gordon Rowell <gordonr@gormand.com.au>
-- [1.13.1-04sme05]
-- Purge user@domain pseudonyms for deleted domains. Possibly more
-  correctly placed in e-smith-email. [SF: 1193570]
-
-* Mon Jul 18 2005 Gordon Rowell <gordonr@gormand.com.au>
-- [1.13.1-04sme04]
-- Rename delete-hosts to purge-domain so we can use it for other cleanups
-  [SF: 1193570]
-
-* Mon Jul 18 2005 Gordon Rowell <gordonr@gormand.com.au>
-- [1.13.1-04sme03]
-- Simplify delete-hosts action script prior to rename [SF: 1193570]
-
-* Sun Jul 17 2005 Shad L. Lords <slords@mail.com>
-- [1.13.1-04sme02]
-- Preliminary patches to move db
-
-* Sun Jul 17 2005 Shad L. Lords <slords@mail.com>
-- [1.13.1-04sme01]
-- Fix to ensure panel returns status [SF: 1200284]
+* Mon Jul 18 2005 Charlie Brady <charlieb@e-smith.com>
+- [1.13.1-05]
+- Fix to ensure panel returns status if delete fails [SF: 1200284 (Shad)]
 
 * Thu Jul  7 2005 Charlie Brady <charlieb@e-smith.com>
 - [1.13.1-04]
@@ -926,10 +906,6 @@ mkdir -p root/etc/e-smith/web/panels/manager/cgi-bin
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
-%patch6 -p1
-%patch7 -p1
-%patch8 -p1
-%patch9 -p1
 
 %build
 perl createlinks

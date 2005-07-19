@@ -1,6 +1,7 @@
-diff -Nur -x '*.orig' -x '*.rej' e-smith-hosts-1.13.1/createlinks mezzanine_patched_e-smith-hosts-1.13.1/createlinks
---- e-smith-hosts-1.13.1/createlinks	2005-07-18 01:33:00.436998288 -0600
-+++ mezzanine_patched_e-smith-hosts-1.13.1/createlinks	2005-07-18 01:32:50.418521328 -0600
+Index: e-smith-hosts/createlinks
+diff -u e-smith-hosts/createlinks:1.10 e-smith-hosts/createlinks:1.11
+--- e-smith-hosts/createlinks:1.10	Thu Jul  7 12:29:52 2005
++++ e-smith-hosts/createlinks	Mon Jul 18 18:34:26 2005
 @@ -31,7 +31,7 @@
  
  event_link("conf-migrate-hosts", $event , "02");
@@ -16,10 +17,11 @@ diff -Nur -x '*.orig' -x '*.rej' e-smith-hosts-1.13.1/createlinks mezzanine_patc
  
 -event_link("delete-hosts", $event, "04");
 +event_link("purge-domain", $event, "04");
-diff -Nur -x '*.orig' -x '*.rej' e-smith-hosts-1.13.1/root/etc/e-smith/events/actions/delete-hosts mezzanine_patched_e-smith-hosts-1.13.1/root/etc/e-smith/events/actions/delete-hosts
---- e-smith-hosts-1.13.1/root/etc/e-smith/events/actions/delete-hosts	2005-07-18 01:33:00.701958008 -0600
-+++ mezzanine_patched_e-smith-hosts-1.13.1/root/etc/e-smith/events/actions/delete-hosts	1969-12-31 17:00:00.000000000 -0700
-@@ -1,57 +0,0 @@
+Index: e-smith-hosts/e-smith-hosts.spec
+diff -u e-smith-hosts/root/etc/e-smith/events/actions/delete-hosts:1.3 e-smith-hosts/root/etc/e-smith/events/actions/delete-hosts:removed
+--- e-smith-hosts/root/etc/e-smith/events/actions/delete-hosts:1.3	Fri May 30 16:23:37 2003
++++ e-smith-hosts/root/etc/e-smith/events/actions/delete-hosts	Wed Dec 31 19:00:00 1969
+@@ -1,66 +0,0 @@
 -#!/usr/bin/perl -w
 -
 -#----------------------------------------------------------------------
@@ -63,28 +65,39 @@ diff -Nur -x '*.orig' -x '*.rej' e-smith-hosts-1.13.1/root/etc/e-smith/events/ac
 -my $event = $ARGV [0];
 -
 -# Look for invalid hosts in the hostsdb.
--my %domain_names = map { $_->{key} => 1 } $domainsdb->domains;
+-my @domain_names = map { $_->{key} } $domainsdb->domains;
 -
 -# We want to check each host and see if it belongs to a domain that we are
 -# currently managing. If not, delete it.
 -foreach my $host ($hostsdb->hosts)
 -{
 -    my ($hostpart, $domainpart) = split (/\./, $host->{key}, 2);
--
--    next if exists $domain_names{$domainpart};
--
--    $host->delete;
+-    my $found = FALSE;
+-    foreach my $domain_name (@domain_names)
+-    {
+-	if ($domainpart eq $domain_name)
+-	{
+-	    $found = TRUE;
+-	    last;
+-	}
+-    }
+-    if (! $found)
+-    {
+-	$host->delete;
+-    }
 -}
 -
 -exit 0;
-diff -Nur -x '*.orig' -x '*.rej' e-smith-hosts-1.13.1/root/etc/e-smith/events/actions/purge-domain mezzanine_patched_e-smith-hosts-1.13.1/root/etc/e-smith/events/actions/purge-domain
---- e-smith-hosts-1.13.1/root/etc/e-smith/events/actions/purge-domain	1969-12-31 17:00:00.000000000 -0700
-+++ mezzanine_patched_e-smith-hosts-1.13.1/root/etc/e-smith/events/actions/purge-domain	2005-07-18 01:26:51.664952104 -0600
-@@ -0,0 +1,57 @@
+Index: e-smith-hosts/root/etc/e-smith/events/actions/purge-domain
+diff -u /dev/null e-smith-hosts/root/etc/e-smith/events/actions/purge-domain:1.1
+--- /dev/null	Mon Jul 18 18:34:56 2005
++++ e-smith-hosts/root/etc/e-smith/events/actions/purge-domain	Mon Jul 18 18:34:27 2005
+@@ -0,0 +1,67 @@
 +#!/usr/bin/perl -w
 +
 +#----------------------------------------------------------------------
-+# copyright (C) 1999-2001 e-smith, inc.
++# copyright (C) 1999-2005 Mitel Networks Corporation
++# Copyright (C) 2005 Gordon Rowell <gordonr@gormand.com.au>
 +#
 +# This program is free software; you can redistribute it and/or modify
 +# it under the terms of the GNU General Public License as published by
@@ -99,9 +112,6 @@ diff -Nur -x '*.orig' -x '*.rej' e-smith-hosts-1.13.1/root/etc/e-smith/events/ac
 +# You should have received a copy of the GNU General Public License
 +# along with this program; if not, write to the Free Software
 +# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307  USA
-+#
-+# Technical support for this program is available from e-smith, inc.
-+# Please visit our web site www.e-smith.net for details.
 +#----------------------------------------------------------------------
 +
 +package esmith;
@@ -110,18 +120,18 @@ diff -Nur -x '*.orig' -x '*.rej' e-smith-hosts-1.13.1/root/etc/e-smith/events/ac
 +use esmith::util;
 +use esmith::DomainsDB;
 +use esmith::HostsDB;
++use esmith::AccountsDB;
 +
-+use constant TRUE  => 1;
-+use constant FALSE => 0;
-+
-+my $domainsdb = esmith::DomainsDB->open;
++my $domainsdb = esmith::DomainsDB->open_ro;
 +my $hostsdb = esmith::HostsDB->open;
++my $accountsdb = esmith::AccountsDB->open;
 +
 +#------------------------------------------------------------
 +# Remove all hosts for the domain being deleted
 +#------------------------------------------------------------
 +
 +my $event = $ARGV [0];
++# my $domain = $ARGV[1];	# Unused
 +
 +# Look for invalid hosts in the hostsdb.
 +my %domain_names = map { $_->{key} => 1 } $domainsdb->domains;
@@ -135,6 +145,18 @@ diff -Nur -x '*.orig' -x '*.rej' e-smith-hosts-1.13.1/root/etc/e-smith/events/ac
 +    next if exists $domain_names{$domainpart};
 +
 +    $host->delete;
++}
++
++# Ditto for pseudonyms
++for my $nym ($accountsdb->pseudonyms)
++{
++    my ($host, $domain) = split (/\@/, $nym->{key}, 2);
++
++    next unless $domain;
++
++    next if exists $domain_names{$nym};
++
++    $nym->delete;
 +}
 +
 +exit 0;

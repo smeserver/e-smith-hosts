@@ -1,6 +1,7 @@
-diff -Nur -x '*.orig' -x '*.rej' e-smith-hosts-1.13.1/root/etc/e-smith/events/actions/conf-hostsdb mezzanine_patched_e-smith-hosts-1.13.1/root/etc/e-smith/events/actions/conf-hostsdb
---- e-smith-hosts-1.13.1/root/etc/e-smith/events/actions/conf-hostsdb	2003-02-24 14:36:15.000000000 -0700
-+++ mezzanine_patched_e-smith-hosts-1.13.1/root/etc/e-smith/events/actions/conf-hostsdb	2005-07-17 22:19:00.165875816 -0600
+Index: e-smith-hosts/e-smith-hosts.spec
+diff -u e-smith-hosts/root/etc/e-smith/events/actions/conf-hostsdb:1.2 e-smith-hosts/root/etc/e-smith/events/actions/conf-hostsdb:1.3
+--- e-smith-hosts/root/etc/e-smith/events/actions/conf-hostsdb:1.2	Mon Feb 24 16:36:15 2003
++++ e-smith-hosts/root/etc/e-smith/events/actions/conf-hostsdb	Mon Jul 18 18:24:47 2005
 @@ -32,9 +32,6 @@
  my %conf;
  tie %conf, 'esmith::config';
@@ -11,9 +12,10 @@ diff -Nur -x '*.orig' -x '*.rej' e-smith-hosts-1.13.1/root/etc/e-smith/events/ac
  #------------------------------------------------------------
  # Populate the hosts database with default entries if they
  # they don't already exist
-diff -Nur -x '*.orig' -x '*.rej' e-smith-hosts-1.13.1/root/etc/e-smith/events/actions/conf-migrate-hosts mezzanine_patched_e-smith-hosts-1.13.1/root/etc/e-smith/events/actions/conf-migrate-hosts
---- e-smith-hosts-1.13.1/root/etc/e-smith/events/actions/conf-migrate-hosts	2003-02-24 14:36:15.000000000 -0700
-+++ mezzanine_patched_e-smith-hosts-1.13.1/root/etc/e-smith/events/actions/conf-migrate-hosts	2005-07-17 22:27:53.658403328 -0600
+Index: e-smith-hosts/root/etc/e-smith/events/actions/conf-migrate-hosts
+diff -u e-smith-hosts/root/etc/e-smith/events/actions/conf-migrate-hosts:1.6 e-smith-hosts/root/etc/e-smith/events/actions/conf-migrate-hosts:1.7
+--- e-smith-hosts/root/etc/e-smith/events/actions/conf-migrate-hosts:1.6	Mon Feb 24 16:36:15 2003
++++ e-smith-hosts/root/etc/e-smith/events/actions/conf-migrate-hosts	Mon Jul 18 18:24:47 2005
 @@ -53,13 +53,8 @@
      tie %conf, 'esmith::config';
  }
@@ -72,9 +74,10 @@ diff -Nur -x '*.orig' -x '*.rej' e-smith-hosts-1.13.1/root/etc/e-smith/events/ac
  }
  
  #-------------------------------------------------------
-diff -Nur -x '*.orig' -x '*.rej' e-smith-hosts-1.13.1/root/etc/e-smith/events/actions/create-default-hosts mezzanine_patched_e-smith-hosts-1.13.1/root/etc/e-smith/events/actions/create-default-hosts
---- e-smith-hosts-1.13.1/root/etc/e-smith/events/actions/create-default-hosts	2002-04-19 12:04:34.000000000 -0600
-+++ mezzanine_patched_e-smith-hosts-1.13.1/root/etc/e-smith/events/actions/create-default-hosts	2005-07-17 22:25:43.998654312 -0600
+Index: e-smith-hosts/root/etc/e-smith/events/actions/create-default-hosts
+diff -u e-smith-hosts/root/etc/e-smith/events/actions/create-default-hosts:1.2 e-smith-hosts/root/etc/e-smith/events/actions/create-default-hosts:1.3
+--- e-smith-hosts/root/etc/e-smith/events/actions/create-default-hosts:1.2	Fri Apr 19 14:04:34 2002
++++ e-smith-hosts/root/etc/e-smith/events/actions/create-default-hosts	Mon Jul 18 18:24:47 2005
 @@ -32,8 +32,8 @@
  my %conf;
  tie %conf, 'esmith::config';
@@ -82,7 +85,7 @@ diff -Nur -x '*.orig' -x '*.rej' e-smith-hosts-1.13.1/root/etc/e-smith/events/ac
 -my %hosts;
 -tie %hosts, 'esmith::config', '/home/e-smith/hosts';
 +use esmith::HostsDB;
-+my $hdb = esmith::HostsDB->open_ro();
++my $hdb = esmith::HostsDB->open();
  
  #------------------------------------------------------------
  # Populate the hosts database with default entries for a given
@@ -114,9 +117,10 @@ diff -Nur -x '*.orig' -x '*.rej' e-smith-hosts-1.13.1/root/etc/e-smith/events/ac
  		HostType => 'Self',
  		Visibility => $visibility,
  		static => 'yes',
-diff -Nur -x '*.orig' -x '*.rej' e-smith-hosts-1.13.1/root/etc/e-smith/templates/etc/dhcpd.conf/60StaticEntries mezzanine_patched_e-smith-hosts-1.13.1/root/etc/e-smith/templates/etc/dhcpd.conf/60StaticEntries
---- e-smith-hosts-1.13.1/root/etc/e-smith/templates/etc/dhcpd.conf/60StaticEntries	2002-02-27 14:56:30.000000000 -0700
-+++ mezzanine_patched_e-smith-hosts-1.13.1/root/etc/e-smith/templates/etc/dhcpd.conf/60StaticEntries	2005-07-17 22:17:30.368840176 -0600
+Index: e-smith-hosts/root/etc/e-smith/templates/etc/dhcpd.conf/60StaticEntries
+diff -u e-smith-hosts/root/etc/e-smith/templates/etc/dhcpd.conf/60StaticEntries:1.1.1.1 e-smith-hosts/root/etc/e-smith/templates/etc/dhcpd.conf/60StaticEntries:1.2
+--- e-smith-hosts/root/etc/e-smith/templates/etc/dhcpd.conf/60StaticEntries:1.1.1.1	Wed Feb 27 16:56:30 2002
++++ e-smith-hosts/root/etc/e-smith/templates/etc/dhcpd.conf/60StaticEntries	Mon Jul 18 18:24:47 2005
 @@ -2,27 +2,21 @@
      #------------------------------------------------------------
      # Static dhcp Entries
@@ -153,9 +157,10 @@ diff -Nur -x '*.orig' -x '*.rej' e-smith-hosts-1.13.1/root/etc/e-smith/templates
  	defined($Filename) and $OUT .= "    filename \"$Filename\";\n";
  	$OUT .= "    hardware ethernet $MACAddress;\n";
  	$OUT .= "    fixed-address $InternalIP;\n";
-diff -Nur -x '*.orig' -x '*.rej' e-smith-hosts-1.13.1/root/etc/e-smith/tests/50-hosts/configuration.conf mezzanine_patched_e-smith-hosts-1.13.1/root/etc/e-smith/tests/50-hosts/configuration.conf
---- e-smith-hosts-1.13.1/root/etc/e-smith/tests/50-hosts/configuration.conf	2003-02-24 14:36:15.000000000 -0700
-+++ mezzanine_patched_e-smith-hosts-1.13.1/root/etc/e-smith/tests/50-hosts/configuration.conf	2005-07-17 22:10:48.496723808 -0600
+Index: e-smith-hosts/root/etc/e-smith/tests/50-hosts/configuration.conf
+diff -u e-smith-hosts/root/etc/e-smith/tests/50-hosts/configuration.conf:1.3 e-smith-hosts/root/etc/e-smith/tests/50-hosts/configuration.conf:1.4
+--- e-smith-hosts/root/etc/e-smith/tests/50-hosts/configuration.conf:1.3	Mon Feb 24 16:36:15 2003
++++ e-smith-hosts/root/etc/e-smith/tests/50-hosts/configuration.conf	Mon Jul 18 18:24:48 2005
 @@ -36,7 +36,7 @@
  MinUid=5000
  NOCType=undefined
