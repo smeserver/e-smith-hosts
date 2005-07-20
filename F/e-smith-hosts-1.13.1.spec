@@ -1,7 +1,7 @@
 Summary: e-smith module for managing hosts entries
 Name: e-smith-hosts
 %define version 1.13.1
-%define release 07sme02
+%define release 09
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -14,9 +14,8 @@ Patch2: e-smith-hosts-1.13.1-04.mitel_patch
 Patch3: e-smith-hosts-1.13.1-05.mitel_patch
 Patch4: e-smith-hosts-1.13.1-06.mitel_patch
 Patch5: e-smith-hosts-1.13.1-07.mitel_patch
-Patch6: e-smith-hosts-1.13.1-cleanup.patch
-Patch7: e-smith-hosts-1.13.1-table.patch
-Patch8: e-smith-hosts-1.13.1-table.patch2
+Patch6: e-smith-hosts-1.13.1-08.mitel_patch
+Patch7: e-smith-hosts-1.13.1-09.mitel_patch
 Packager: e-smith developers <bugs@e-smith.com>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base
@@ -31,18 +30,15 @@ e-smith module to allow the configuration of the hosts database, which is
 used to build the DNS and DHCP configuration.
 
 %changelog
-* Mon Jul 18 2005 Shad L. Lords <slords@mail.com>
-- [1.13.1-07sme02]
-- Fix table headers
+* Tue Jul 19 2005 Charlie Brady <charlieb@e-smith.com>
+- [1.13.1-09]
+- Hostnames panel updates from Shad Lords.
 
-* Mon Jul 18 2005 Shad L. Lords <slords@mail.com>
-- [1.13.1-07sme01]
-- Add all hosts table back in
-- Remove publish globally from add
-
-* Mon Jul 18 2005 Shad L. Lords <slords@mail.com>
-- [1.13.1-07sme01]
-- Cleanup host migrate fragment so that it actually creates hosts
+* Tue Jul 19 2005 Charlie Brady <charlieb@e-smith.com>
+- [1.13.1-08]
+- Complete the update to current db access APIs - a few esmith::db and
+  esmith::config calls were found hiding. Rewrite conf-hostsdb as simple
+  shell script. [SF: 1216546]
 
 * Mon Jul 18 2005 Charlie Brady <charlieb@e-smith.com>
 - [1.13.1-07]
@@ -924,7 +920,6 @@ mkdir -p root/etc/e-smith/web/panels/manager/cgi-bin
 %patch5 -p1
 %patch6 -p1
 %patch7 -p1
-%patch8 -p1
 
 %build
 perl createlinks
