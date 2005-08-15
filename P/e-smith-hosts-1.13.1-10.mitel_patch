@@ -1,0 +1,240 @@
+Index: e-smith-hosts/createlinks
+diff -u e-smith-hosts/createlinks:1.11 e-smith-hosts/createlinks:1.12
+--- e-smith-hosts/createlinks:1.11	Mon Jul 18 18:34:26 2005
++++ e-smith-hosts/createlinks	Mon Aug 15 15:05:21 2005
+@@ -22,6 +22,7 @@
+ {
+     safe_symlink("restart", "root/etc/e-smith/events/$event/services2adjust/dhcpd");
+     safe_symlink("sigusr1", "root/etc/e-smith/events/$event/services2adjust/tinydns");
++    safe_symlink("sigterm", "root/etc/e-smith/events/$event/services2adjust/dnscache");
+ }
+ 
+ #--------------------------------------------------
+@@ -29,7 +30,6 @@
+ #--------------------------------------------------
+ $event = "bootstrap-console-save";
+ 
+-event_link("conf-migrate-hosts", $event , "02");
+ event_link("conf-hostsdb", $event , "03");
+ event_link("purge-domain", $event, "04");
+ 
+Index: e-smith-hosts/e-smith-hosts.spec
+diff -u /dev/null e-smith-hosts/root/etc/e-smith/db/hosts/migrate/10reformat:1.1
+--- /dev/null	Mon Aug 15 15:05:50 2005
++++ e-smith-hosts/root/etc/e-smith/db/hosts/migrate/10reformat	Mon Aug 15 15:05:21 2005
+@@ -0,0 +1,36 @@
++{
++    foreach my $host ($DB->get_all)
++    {
++	my %properties;
++	$properties{'InternalIP'} = $host->prop('InternalIP') || '';
++	$properties{'ExternalIP'} = $host->prop('ExternalIP') || '';
++	$properties{'MACAddress'} = $host->prop('MACAddress') || '';
++
++	# If defined as host 'self', change to new format
++	if (($properties{'InternalIP'} eq 'self') && 
++            ($properties{'ExternalIP'} eq 'self'))
++	{
++	    $properties{'HostType'} = 'Self';
++	    $properties{'InternalIP'} = '';
++	    $properties{'ExternalIP'} = '';
++	    $properties{'MACAddress'} = '';
++	}
++        # defined as 'local' entry in new format
++	elsif( $properties{InternalIP} ne 'self' )
++	{
++	    $properties{'HostType'} = 'Local';
++            $properties{ExternalIP} = '';
++	}
++        elsif( $properties{ExternalIP} ne 'self' ) 
++        {
++            $properties{'HostType'} = 'Remote';
++            $properties{InternalIP} = '';
++        }
++        else {
++            warn "$host has no InternalIP or ExternalIP!\n";
++        }
++
++	$host->delete_prop('Visibility');
++	$host->merge_props(%properties);
++    }
++}
+Index: e-smith-hosts/root/etc/e-smith/db/hosts/migrate/20eachdomain
+diff -u /dev/null e-smith-hosts/root/etc/e-smith/db/hosts/migrate/20eachdomain:1.1
+--- /dev/null	Mon Aug 15 15:05:50 2005
++++ e-smith-hosts/root/etc/e-smith/db/hosts/migrate/20eachdomain	Mon Aug 15 15:05:21 2005
+@@ -0,0 +1,20 @@
++{
++    use esmith::DomainsDB;
++    my $ddb = esmith::DomainsDB->open_ro;
++    # If there's no domains db, there's nothing to do
++    return unless $ddb;
++
++    # For any bare hostname, create a qualified host record
++    # for each domain, then delete the bare host record
++    foreach my $host (grep { $_->key !~ /\./ } $DB->get_all)
++    {
++	my $key = $host->key;
++	foreach my $d ($ddb->domains)
++	{
++	    $d = $d->key;
++	    next if $DB->get("$key.$d");
++	    $DB->new_record("$key.$d", { $host->props });
++	}
++	$host->delete;
++    }
++}
+Index: e-smith-hosts/root/etc/e-smith/events/actions/create-default-hosts
+diff -u e-smith-hosts/root/etc/e-smith/events/actions/create-default-hosts:1.4 e-smith-hosts/root/etc/e-smith/events/actions/create-default-hosts:1.5
+--- e-smith-hosts/root/etc/e-smith/events/actions/create-default-hosts:1.4	Tue Jul 19 18:18:55 2005
++++ e-smith-hosts/root/etc/e-smith/events/actions/create-default-hosts	Mon Aug 15 15:05:21 2005
+@@ -32,55 +32,38 @@
+ 
+ #------------------------------------------------------------
+ # Populate the hosts database with default entries for a given
+-# domain if they they don't already exist
++# domain if they don't already exist
+ #------------------------------------------------------------
+-my $event = $ARGV [0];
+-my $domain = $ARGV [1];
+-my $visibility = $ARGV [2] || 'Local';
++my $event = $ARGV [0] or die "Must provide event name arg";
++my $domain = $ARGV [1] or die "Must provide domain name arg";
+ 
+-my @hosts = qw ( ftp mail www proxy wpad );
++#------------------------------------------------------------
++# Create a default host for the SystemName which includes
++# a property static=yes (meaning not editable from the interface)
++#
++# Also create a set of default host records of type "Self".
++#------------------------------------------------------------
+ 
+-foreach my $host ( @hosts )
++my $systemName = $db->get('SystemName')->value;
++
++foreach my $host (qw(ftp mail www proxy wpad), $systemName)
+ {
+     my $FQDN = join ".", $host, $domain;
+-
+-    next unless defined $FQDN;
+     next if (defined $hdb->get($FQDN));
+ 
+-    $hdb->new_record($FQDN,
+-	{
++    my %properties = (
+ 	    type => 'host',
+ 	    HostType => 'Self',
+-	    Visibility => $visibility,
+ 	    InternalIP => '',
+ 	    ExternalIP => '',
+ 	    MACAddress => ''
+-	} );
+-}
+-
+-#------------------------------------------------------------
+-# Create a default host for the SystemName which includes
+-# a property static=yes (meaning not editable from the interface)
+-#------------------------------------------------------------
+-
+-my $systemName = $db->get('SystemName');
+-if ($systemName)
+-{
+-    my $FQDN = join ".", $systemName->value, $domain;
+-
+-    unless (defined $hdb->get($FQDN))
++	);
++    if ($host eq $systemName)
+     {
+-        $hdb->new_record($FQDN,
+-	    {
+-		type => 'host',
+-		HostType => 'Self',
+-		Visibility => $visibility,
+-		static => 'yes',
+-		InternalIP => '',
+-		ExternalIP => '',
+-		MACAddress => ''
+-	    } );
++	$properties{static} = "yes";
+     }
++
++    $hdb->new_record($FQDN, \%properties);
+ }
+ 
+ exit (0);
+Index: e-smith-hosts/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/hostentries.pm
+diff -u e-smith-hosts/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/hostentries.pm:1.51 e-smith-hosts/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/hostentries.pm:1.52
+--- e-smith-hosts/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/hostentries.pm:1.51	Tue Jul 19 19:18:59 2005
++++ e-smith-hosts/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/hostentries.pm	Mon Aug 15 15:05:22 2005
+@@ -51,7 +51,6 @@
+     create_or_modify
+     lexicon_params
+     remove
+-    visibility_msg
+     mac_address_or_blank
+     not_in_dhcp_range
+     print_save_or_add_button
+@@ -60,7 +59,7 @@
+     must_be_local
+ );
+ 
+-our $VERSION = sprintf '%d.%03d', q$Revision: 1.50 $ =~ /: (\d+).(\d+)/;
++our $VERSION = sprintf '%d.%03d', q$Revision: 1.51 $ =~ /: (\d+).(\d+)/;
+ 
+ our $db = esmith::ConfigDB->open();
+ 
+@@ -581,54 +580,6 @@
+         hostname    => $self->cgi->param('name') || "",
+         domain      => $self->cgi->param('domain') || "",
+     );
+-}
+-
+-=head2 visibility_msg()
+-
+-=for testing
+-can_ok('main', 'visibility_msg');
+-
+-=cut
+-
+-sub visibility_msg {
+-    my $self = shift;
+-    my $msg = "";
+-    if ($self->dns_subscribed()) {
+-        $msg = $self->localise('PUBLISH_GLOBALLY_SUBSCRIBED');
+-    } else {
+-        $msg = $self->localise('PUBLISH_GLOBALLY_NOT_SUBSCRIBED');
+-    }
+-    print qq(<tr><td colspan=2>$msg</td></tr>);
+-    return "";
+-}
+-
+-
+-=head2 dns_subscribed()
+-
+-Determines whether or not this server is subscribed to the DNS Service.
+-
+-=begin testing
+-
+-can_ok($panel, 'dns_subscribed');
+-
+-eval "require esmith::NetworkServicesDB";
+-
+-if ($@) {
+-    is($panel->dns_subscribed(), undef,
+-    "DNS not subscribed if NetworkServicesDB not there");
+-}
+-
+-=end testing
+-
+-=cut
+-
+-sub dns_subscribed {
+-    eval "require esmith::NetworkServicesDB";
+-    return undef if $@;
+-
+-    my $db = esmith::NetworkServicesDB->open() or return undef;
+-    return $db->dns_subscribed();
+-
+ }
+ 
+ sub not_in_dhcp_range
