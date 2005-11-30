@@ -1,23 +1,14 @@
 Summary: e-smith module for managing hosts entries
 Name: e-smith-hosts
-%define version 1.13.1
-%define release 11
+%define version 1.13.3
+%define release 03
 Version: %{version}
 Release: %{release}
 License: GPL
 Vendor: Mitel Networks Corporation
 Group: Networking/Daemons
 Source: %{name}-%{version}.tar.gz
-Patch0: e-smith-hosts-1.13.1-02.mitel_patch
-Patch1: e-smith-hosts-1.13.1-03.mitel_patch
-Patch2: e-smith-hosts-1.13.1-04.mitel_patch
-Patch3: e-smith-hosts-1.13.1-05.mitel_patch
-Patch4: e-smith-hosts-1.13.1-06.mitel_patch
-Patch5: e-smith-hosts-1.13.1-07.mitel_patch
-Patch6: e-smith-hosts-1.13.1-08.mitel_patch
-Patch7: e-smith-hosts-1.13.1-09.mitel_patch
-Patch8: e-smith-hosts-1.13.1-10.mitel_patch
-Patch9: e-smith-hosts-1.13.1-11.mitel_patch
+Patch0: e-smith-hosts-1.13.3-02.mitel_patch
 Packager: e-smith developers <bugs@e-smith.com>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base
@@ -32,6 +23,43 @@ e-smith module to allow the configuration of the hosts database, which is
 used to build the DNS and DHCP configuration.
 
 %changelog
+* Wed Nov 30 2005 Gordon Rowell <gordonr@gormand.com.au> 1.13.3-03
+- Bump release number only
+
+* Fri Nov  4 2005 Charlie Brady <charlieb@e-smith.com>
+- [1.13.3-02]
+- s/local_ip/global_ip/ when setting host to type Remote.
+  Ensure that Remote hosts don't have local_ip set.
+  [SF: 1293449]
+- Add missing "IP_ADDRESS" localisation.
+- Remove vestigial print_global_ip_field() function.
+- Deal gracefully with missing Nameservers property of domains.
+
+* Fri Oct 14 2005 Gordon Rowell <gordonr@e-smith.com>
+- [1.13.3-01]
+- Remove L10Ns from base packages [SF: 1309520]
+
+* Fri Oct 14 2005 Gordon Rowell <gordonr@e-smith.com>
+- [1.13.2-01]
+- New dev stream before relocating L10Ns
+
+* Fri Sep 30 2005 Gordon Rowell <gordonr@e-smith.com>
+- [1.13.1-15]
+- Added Italian L10N - Thanks Filippo Carletti [SF: 1309266]
+
+* Mon Sep 26 2005 Gordon Rowell <gordonr@e-smith.com>
+- [1.13.1-14]
+- Only display the DNS Forwarder message if there are no domains
+  set with Nameservers==localhost [SF: 1303422]
+
+* Mon Sep 26 2005 Gordon Rowell <gordonr@e-smith.com>
+- [1.13.1-13]
+- Allow dnscache{Forwarder} to be configured, but empty [SF: 1303422]
+
+* Mon Sep 26 2005 Gordon Rowell <gordonr@e-smith.com>
+- [1.13.1-12]
+- Added German L10N - Thanks Dietmar Berteld [SF: 1293325]
+
 * Mon Aug 29 2005 Charlie Brady <charlieb@e-smith.com>
 - [1.13.1-11]
 - Avoid double reformatting of old host records, which breaks HostType == self
@@ -927,15 +955,6 @@ used to build the DNS and DHCP configuration.
 %setup
 mkdir -p root/etc/e-smith/web/panels/manager/cgi-bin
 %patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
-%patch5 -p1
-%patch6 -p1
-%patch7 -p1
-%patch8 -p1
-%patch9 -p1
 
 %build
 perl createlinks

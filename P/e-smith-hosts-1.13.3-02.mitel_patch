@@ -1,0 +1,88 @@
+Index: e-smith-hosts/e-smith-hosts.spec
+diff -u e-smith-hosts/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/hostentries:1.11 e-smith-hosts/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/hostentries:1.13
+--- e-smith-hosts/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/hostentries:1.11	Thu Jul  7 12:51:22 2005
++++ e-smith-hosts/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/hostentries	Fri Nov  4 16:16:54 2005
+@@ -69,6 +69,12 @@
+         </trans>
+     </entry>
+     <entry>
++        <base>IP_ADDRESS</base>
++        <trans>
++            IP Address
++        </trans>
++    </entry>
++    <entry>
+         <base>GLOBAL_IP</base>
+         <trans>
+             Global IP
+Index: e-smith-hosts/root/etc/e-smith/web/functions/hostentries
+diff -u e-smith-hosts/root/etc/e-smith/web/functions/hostentries:1.33 e-smith-hosts/root/etc/e-smith/web/functions/hostentries:1.34
+--- e-smith-hosts/root/etc/e-smith/web/functions/hostentries:1.33	Tue Jul 19 19:18:59 2005
++++ e-smith-hosts/root/etc/e-smith/web/functions/hostentries	Fri Nov  4 16:11:57 2005
+@@ -113,15 +113,13 @@
+             <label>ETHERNET_ADDRESS</label>
+             <description>ETHERNET_ADDRESS_DESCRIPTION</description>
+         </field>
+-        <subroutine src="print_global_ip_field()" />
+         <subroutine src="print_button('NEXT')" />
+     </page>
+     <page name="Remote" pre-event="turn_off_buttons()" post-event="goto_confirm()">
+         <description>REMOTE_PAGE_DESCRIPTION</description>
+-        <field type="text" id="local_ip" validation="ip_number">
++        <field type="text" id="global_ip" validation="ip_number">
+             <label>IP_ADDR</label>
+         </field>
+-        <subroutine src="print_global_ip_field()" />
+         <subroutine src="print_button('NEXT')" />
+     </page>
+ 
+Index: e-smith-hosts/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/hostentries.pm
+diff -u e-smith-hosts/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/hostentries.pm:1.54 e-smith-hosts/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/hostentries.pm:1.55
+--- e-smith-hosts/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/hostentries.pm:1.54	Mon Sep 26 03:36:38 2005
++++ e-smith-hosts/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/hostentries.pm	Fri Nov  4 16:11:57 2005
+@@ -40,7 +40,6 @@
+     print_hosts_tables
+     print_hostname_field
+     print_domain_field
+-    print_global_ip_field
+     domains_list
+     more_options
+     goto_confirm
+@@ -56,7 +55,7 @@
+     must_be_local
+ );
+ 
+-our $VERSION = sprintf '%d.%03d', q$Revision: 1.53 $ =~ /: (\d+).(\d+)/;
++our $VERSION = sprintf '%d.%03d', q$Revision: 1.54 $ =~ /: (\d+).(\d+)/;
+ 
+ our $db = esmith::ConfigDB->open();
+ 
+@@ -315,10 +314,6 @@
+     return undef;
+ }
+ 
+-sub print_global_ip_field {
+-    return undef;
+-}
+-
+ =head2 mac_address_or_blank
+ 
+ Validation routine for optional ethernet address
+@@ -352,7 +347,8 @@
+ 
+     for ($d->domains)
+     {
+-	push @domains, $_->key if ($_->prop("Nameservers") eq 'localhost');
++	my $ns = $_->prop("Nameservers") || 'localhost';
++	push @domains, $_->key if ($ns eq 'localhost');
+     }
+ 
+     return \@domains;
+@@ -432,6 +428,7 @@
+ 
+     if ($type eq "Remote")
+     {
++        $self->{cgi}->delete('local_ip');
+         $self->{cgi}->delete('ethernet_address');
+     }
+ 
