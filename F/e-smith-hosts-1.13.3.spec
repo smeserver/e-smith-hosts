@@ -1,7 +1,7 @@
 Summary: e-smith module for managing hosts entries
 Name: e-smith-hosts
 %define version 1.13.3
-%define release 03
+%define release 04
 Version: %{version}
 Release: %{release}
 License: GPL
@@ -9,6 +9,7 @@ Vendor: Mitel Networks Corporation
 Group: Networking/Daemons
 Source: %{name}-%{version}.tar.gz
 Patch0: e-smith-hosts-1.13.3-02.mitel_patch
+Patch1: e-smith-hosts-1.13.3-pseudonyms.patch
 Packager: e-smith developers <bugs@e-smith.com>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base
@@ -23,6 +24,9 @@ e-smith module to allow the configuration of the hosts database, which is
 used to build the DNS and DHCP configuration.
 
 %changelog
+* Tue Jan 24 2006 Gordon Rowell <gordonr@gormand.com.au> 1.13.3-04
+- Fix purge-domain code relating to pseudonym cleanup [SME: 515]
+
 * Wed Nov 30 2005 Gordon Rowell <gordonr@gormand.com.au> 1.13.3-03
 - Bump release number only
 
@@ -955,6 +959,7 @@ used to build the DNS and DHCP configuration.
 %setup
 mkdir -p root/etc/e-smith/web/panels/manager/cgi-bin
 %patch0 -p1
+%patch1 -p1
 
 %build
 perl createlinks
