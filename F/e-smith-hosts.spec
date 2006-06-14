@@ -1,13 +1,14 @@
 Summary: e-smith module for managing hosts entries
 Name: e-smith-hosts
 %define version 1.14.0
-%define release 01
+%define release 02
 Version: %{version}
 Release: %{release}
 License: GPL
 Vendor: Mitel Networks Corporation
 Group: Networking/Daemons
 Source: %{name}-%{version}.tar.gz
+Patch0: e-smith-hosts-1.14.0-hostentriesformatting.patch
 Packager: e-smith developers <bugs@e-smith.com>
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base
@@ -22,6 +23,9 @@ e-smith module to allow the configuration of the hosts database, which is
 used to build the DNS and DHCP configuration.
 
 %changelog
+* Wed Jun 14 2006 Gavin Weight <gweight@gmail.com> 1.14.0-02
+- Improved layout applied to Hostnames and addresses. [SME: 1374]
+
 * Wed Mar 15 2006 Charlie Brady <charlie_brady@mitel.com> 1.14.0-01
 - Roll stable stream version. [SME: 1016]
 
@@ -958,6 +962,7 @@ used to build the DNS and DHCP configuration.
 
 %prep
 %setup
+%patch0 -p1
 
 %build
 perl createlinks

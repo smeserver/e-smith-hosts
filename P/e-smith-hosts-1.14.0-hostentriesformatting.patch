@@ -1,0 +1,24 @@
+diff -Nur -x '*.orig' -x '*.rej' e-smith-hosts-1.14.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/hostentries.pm mezzanine_patched_e-smith-hosts-1.14.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/hostentries.pm
+--- e-smith-hosts-1.14.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/hostentries.pm	2006-03-16 08:33:31.000000000 +1100
++++ mezzanine_patched_e-smith-hosts-1.14.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/hostentries.pm	2006-06-15 07:10:29.797851216 +1000
+@@ -135,6 +135,10 @@
+         return undef;
+     }
+ 
++    print $q->start_table ({-CLASS => "sme-noborders"}),"\n";
++    print $q->start_Tr,"\n";
++    print $q->start_table ({-CLASS => "sme-border"}),"\n";
++
+     print $self->localise('ADD_HOSTNAME');
+ 
+     my $hosts_db = esmith::HostsDB->open();
+@@ -145,9 +149,6 @@
+ 
+         if (my @hosts = $hosts_db->get_hosts_by_domain($d))
+         {
+-            print $q->start_table ({-CLASS => "sme-noborders"}),"\n";
+-            print $q->start_Tr,"\n";
+-            print $q->start_table ({-CLASS => "sme-border"}),"\n";
+             print $q->Tr (esmith::cgi::genSmallCell($q, $self->localise('HOSTNAME'),"header"),
+             esmith::cgi::genSmallCell($q, $self->localise('LOCATION'),"header"),
+             esmith::cgi::genSmallCell($q, $self->localise('IP_ADDRESS'),"header"),
