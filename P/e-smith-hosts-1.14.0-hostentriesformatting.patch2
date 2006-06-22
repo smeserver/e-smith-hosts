@@ -1,0 +1,46 @@
+diff -ru work/e-smith-hosts-1.14.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/hostentries.pm work+patched/e-smith-hosts-1.14.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/hostentries.pm
+--- work/e-smith-hosts-1.14.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/hostentries.pm	2006-06-22 11:01:11.000000000 -0400
++++ work+patched/e-smith-hosts-1.14.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/hostentries.pm	2006-06-22 11:05:18.000000000 -0400
+@@ -135,20 +135,20 @@
+         return undef;
+     }
+ 
+-    print $q->start_table ({-CLASS => "sme-noborders"}),"\n";
+-    print $q->start_Tr,"\n";
+-    print $q->start_table ({-CLASS => "sme-border"}),"\n";
+-
+-    print $self->localise('ADD_HOSTNAME');
++    print $q->start_Tr,"<td>",$q->start_table ({-CLASS => "sme-noborders"}),"\n";
++    print $q->start_Tr,"<td>",$self->localise('ADD_HOSTNAME'),"</td>",$q->end_Tr,"\n";
+ 
+     my $hosts_db = esmith::HostsDB->open();
+ 
+     foreach my $d (@{$self->domains_list()})
+     {
++        print $q->start_Tr,"<td>","\n";
+         print $q->h3($self->localise('CURRENT_HOSTNAMES_FOR_DOMAIN', {domain => $d})),"\n";
++        print "</td>",$q->end_Tr,"\n";
+ 
+         if (my @hosts = $hosts_db->get_hosts_by_domain($d))
+         {
++            print $q->start_Tr,"<td>\n",$q->start_table ({-CLASS => "sme-border"}),"\n";
+             print $q->Tr (esmith::cgi::genSmallCell($q, $self->localise('HOSTNAME'),"header"),
+             esmith::cgi::genSmallCell($q, $self->localise('LOCATION'),"header"),
+             esmith::cgi::genSmallCell($q, $self->localise('IP_ADDRESS'),"header"),
+@@ -156,12 +156,16 @@
+             esmith::cgi::genSmallCell($q, $self->localise('ACTION'),"header",2));
+             $self->print_host_row($_) foreach @hosts;
+             print $q->end_table, "\n";
++            print "</td>",$q->end_Tr,"\n";
+         }
+         else
+         {
++            print $q->start_Tr,"<td>\n";
+             print $self->localise('NO_HOSTS_FOR_THIS_DOMAIN');
++            print "</td>",$q->end_Tr,"\n";
+         }
+     }
++    print $q->end_table,"\n";
+     return undef;
+ }
+ 
