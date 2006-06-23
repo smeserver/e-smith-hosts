@@ -24,8 +24,8 @@ e-smith module to allow the configuration of the hosts database, which is
 used to build the DNS and DHCP configuration.
 
 %changelog
-* Thu Jun 22 2006 Charlie Brady <charlie_brady@mitel.com> 1.14.0-02
-- Fix display of hosts table for additional domains. [SME: 1630]
+* Thu Jun 22 2006 Charlie Brady <charlie_brady@mitel.com> 1.14.0-03
+- Fix display of hosts table for additional domains. [SME: 1630, 1374]
 
 * Wed Jun 14 2006 Gavin Weight <gweight@gmail.com> 1.14.0-02
 - Improved layout applied to Hostnames and addresses. [SME: 1374]
