@@ -1,7 +1,7 @@
 Summary: e-smith module for managing hosts entries
 Name: e-smith-hosts
 %define version 1.14.0
-%define release 4
+%define release 5
 Version: %{version}
 Release: %smerelease %{release}
 Packager: %{_packager}
@@ -11,6 +11,7 @@ Group: Networking/Daemons
 Source: %{name}-%{version}.tar.gz
 Patch0: e-smith-hosts-1.14.0-hostentriesformatting.patch
 Patch1: e-smith-hosts-1.14.0-hostentriesformatting.patch2
+Patch2: e-smith-hosts-1.14.0-comment.patch
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base
 Requires: e-smith-lib >= 1.15.1-19
@@ -24,6 +25,9 @@ e-smith module to allow the configuration of the hosts database, which is
 used to build the DNS and DHCP configuration.
 
 %changelog
+* Wed Jan 10 2007 Shad L. Lords <slords@mail.com> 1.14.0-5
+- Add comment to host entries. [SME: 878]
+
 * Thu Dec 07 2006 Shad L. Lords <slords@mail.com>
 - Update to new release naming.  No functional changes.
 - Make Packager generic
@@ -972,6 +976,7 @@ used to build the DNS and DHCP configuration.
 %setup
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 perl createlinks
