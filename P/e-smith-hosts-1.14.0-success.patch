@@ -1,0 +1,43 @@
+diff -Nur -x '*.orig' -x '*.rej' e-smith-hosts-1.14.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/hostentries.pm mezzanine_patched_e-smith-hosts-1.14.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/hostentries.pm
+--- e-smith-hosts-1.14.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/hostentries.pm	2007-01-13 11:02:03.000000000 -0700
++++ mezzanine_patched_e-smith-hosts-1.14.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/hostentries.pm	2007-01-13 11:01:10.000000000 -0700
+@@ -506,21 +506,18 @@
+     if ($self->cgi->param('action') eq 'create') {
+         if ($h->new_record($hostname, \%props)) {
+             if (system("/sbin/e-smith/signal-event", "host-create", $hostname) == 0) {
+-
+-                $self->set_status_message('SUCCESSFULLY_CREATED');
+-                return;
++                return $self->success('SUCCESSFULLY_CREATED');
+             }
+         }
+-        $self->set_status_message('ERROR_WHILE_CREATING_HOST');
++        return $self->error('ERROR_WHILE_CREATING_HOST');
+     } else {
+         my $record = $h->get($hostname);
+         if ($record->merge_props(%props)) {
+             if (system("/sbin/e-smith/signal-event", "host-modify", $hostname) == 0) {
+-                $self->set_status_message('SUCCESSFULLY_MODIFIED');
+-                return;
++                return $self->success('SUCCESSFULLY_MODIFIED');
+             }
+         }
+-        $self->set_status_message('ERROR_WHILE_MODIFYING_HOST');
++        $self->error('ERROR_WHILE_MODIFYING_HOST');
+     }
+ }
+ 
+@@ -558,11 +555,10 @@
+     my $record = $h->get($hostname);
+     if ($record->delete()) {
+         if (system("/sbin/e-smith/signal-event", "host-delete", $hostname) == 0) {
+-            $self->set_status_message('SUCCESSFULLY_DELETED');
+-            return;
++            return $self->success('SUCCESSFULLY_DELETED');
+         }
+     }
+-    $self->set_status_message('ERROR_WHILE_DELETING_HOST');
++    return $self->error('ERROR_WHILE_DELETING_HOST');
+ }
+ 
+ =head2 lexicon_params()
