@@ -1,7 +1,7 @@
 Summary: e-smith module for managing hosts entries
 Name: e-smith-hosts
 %define version 1.14.0
-%define release 6
+%define release 7
 Version: %{version}
 Release: %smerelease %{release}
 Packager: %{_packager}
@@ -13,6 +13,7 @@ Patch0: e-smith-hosts-1.14.0-hostentriesformatting.patch
 Patch1: e-smith-hosts-1.14.0-hostentriesformatting.patch2
 Patch2: e-smith-hosts-1.14.0-comment.patch
 Patch3: e-smith-hosts-1.14.0-success.patch
+Patch4: e-smith-hosts-1.14.0-thenumbers.patch
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base
 Requires: e-smith-lib >= 1.15.1-19
@@ -26,6 +27,9 @@ e-smith module to allow the configuration of the hosts database, which is
 used to build the DNS and DHCP configuration.
 
 %changelog
+* Mon Feb 19 2007 Stephen Noble <support@dungog.net> 1.14.0-7
+- Fix text with a space [SME: 2246]
+
 * Sat Jan 13 2007 Shad L. Lords <slords@mail.com> 1.14.0-6
 - Make success/failure messages standard [SME: 2290]
 
@@ -982,6 +986,7 @@ used to build the DNS and DHCP configuration.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
 
 %build
 perl createlinks
