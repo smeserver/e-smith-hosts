@@ -3,10 +3,8 @@ Name: e-smith-hosts
 %define version 1.14.0
 %define release 7
 Version: %{version}
-Release: %smerelease %{release}
-Packager: %{_packager}
+Release: %{release}%{?dist}
 License: GPL
-Vendor: Mitel Networks Corporation
 Group: Networking/Daemons
 Source: %{name}-%{version}.tar.gz
 Patch0: e-smith-hosts-1.14.0-hostentriesformatting.patch
@@ -27,6 +25,9 @@ e-smith module to allow the configuration of the hosts database, which is
 used to build the DNS and DHCP configuration.
 
 %changelog
+* Sun Apr 29 2007 Shad L. Lords <slords@mail.com>
+- Clean up spec so package can be built by koji/plague
+
 * Mon Feb 19 2007 Stephen Noble <support@dungog.net> 1.14.0-7
 - Fix text with a space [SME: 2246]
 
