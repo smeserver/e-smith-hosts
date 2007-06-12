@@ -1,0 +1,71 @@
+diff -Nur -x '*.orig' -x '*.rej' e-smith-hosts-1.14.0/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/hostentries mezzanine_patched_e-smith-hosts-1.14.0/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/hostentries
+--- e-smith-hosts-1.14.0/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/hostentries	2006-03-15 14:33:31.000000000 -0700
++++ mezzanine_patched_e-smith-hosts-1.14.0/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/hostentries	2007-01-10 09:55:32.000000000 -0700
+@@ -462,4 +462,8 @@
+         <trans>Error: This IP address is not on any of our local
+             networks.</trans>
+     </entry>
++    <entry>
++        <base>COMMENT</base>
++        <trans>Comment</trans>
++    </entry>
+ </lexicon>
+diff -Nur -x '*.orig' -x '*.rej' e-smith-hosts-1.14.0/root/etc/e-smith/web/functions/hostentries mezzanine_patched_e-smith-hosts-1.14.0/root/etc/e-smith/web/functions/hostentries
+--- e-smith-hosts-1.14.0/root/etc/e-smith/web/functions/hostentries	2006-03-15 14:33:31.000000000 -0700
++++ mezzanine_patched_e-smith-hosts-1.14.0/root/etc/e-smith/web/functions/hostentries	2007-01-10 09:54:54.000000000 -0700
+@@ -87,6 +87,11 @@
+         <title>CREATE_TITLE</title>
+         <subroutine src="print_hostname_field()" />
+         <subroutine src="print_domain_field()" />
++        <field  
++            type="text" size="30"
++            id="comment" >
++            <label>COMMENT</label>
++        </field> 
+         <field type="select" 
+             id="hosttype" 
+             options="'Self' => 'SELF', 'Local' => 'LOCAL', 'Remote' => 'REMOTE'" 
+diff -Nur -x '*.orig' -x '*.rej' e-smith-hosts-1.14.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/hostentries.pm mezzanine_patched_e-smith-hosts-1.14.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/hostentries.pm
+--- e-smith-hosts-1.14.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/hostentries.pm	2007-01-10 09:56:07.000000000 -0700
++++ mezzanine_patched_e-smith-hosts-1.14.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/hostentries.pm	2007-01-10 09:53:49.000000000 -0700
+@@ -153,6 +153,7 @@
+             esmith::cgi::genSmallCell($q, $self->localise('LOCATION'),"header"),
+             esmith::cgi::genSmallCell($q, $self->localise('IP_ADDRESS'),"header"),
+             esmith::cgi::genSmallCell($q, $self->localise('ETHERNET_ADDRESS'),"header"),
++            esmith::cgi::genSmallCell($q, $self->localise('COMMENT'),"header"),
+             esmith::cgi::genSmallCell($q, $self->localise('ACTION'),"header",2));
+             $self->print_host_row($_) foreach @hosts;
+             print $q->end_table, "\n";
+@@ -202,6 +203,7 @@
+     $self->print_td($self->localise($host_record->prop('HostType')) || "&nbsp;");
+     $self->print_td($ip);
+     $self->print_td($host_record->prop('MACAddress') || "&nbsp;");
++    $self->print_td($host_record->prop('Comment') || "&nbsp;");
+     my $static = $host_record->prop('static') || "no";
+     if ($static ne 'yes') {
+         my $propstring = $self->build_host_cgi_params($host_record->key(), $host_record->props());
+@@ -245,6 +247,7 @@
+         global_ip        => $oldprops{ExternalIP},
+         ethernet_address => $oldprops{MACAddress},
+         hosttype         => $oldprops{HostType},
++        comment          => $oldprops{Comment},
+     );
+ 
+     return $self->props_to_query_string(\%props);
+@@ -438,7 +441,7 @@
+     }
+ 
+     foreach my $f (qw( name domain hosttype local_ip global_ip
+-    ethernet_address) ) {
++    ethernet_address comment) ) {
+         my $val = $self->cgi->param($f) || '';
+         $self->debug_msg("looping on param $f, val is $val");
+         print $q->Tr (esmith::cgi::genSmallCell($q, $self->localise(uc($f)),"normal"),
+@@ -497,6 +500,7 @@
+         ExternalIP  => $self->cgi->param('global_ip') || "",
+         InternalIP  => $self->cgi->param('local_ip') || "",
+         MACAddress  => $self->cgi->param('ethernet_address') || "",
++        Comment     => $self->cgi->param('comment') || "",
+     );
+ 
+     if ($self->cgi->param('action') eq 'create') {
