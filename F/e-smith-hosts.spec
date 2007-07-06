@@ -1,7 +1,7 @@
 Summary: e-smith module for managing hosts entries
 Name: e-smith-hosts
 %define version 1.14.0
-%define release 7
+%define release 8
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
@@ -12,6 +12,7 @@ Patch1: e-smith-hosts-1.14.0-hostentriesformatting.patch2
 Patch2: e-smith-hosts-1.14.0-comment.patch
 Patch3: e-smith-hosts-1.14.0-success.patch
 Patch4: e-smith-hosts-1.14.0-thenumbers.patch
+Patch5: e-smith-hosts-1.14.0-no_global.patch
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base
 Requires: e-smith-lib >= 1.15.1-19
@@ -25,6 +26,9 @@ e-smith module to allow the configuration of the hosts database, which is
 used to build the DNS and DHCP configuration.
 
 %changelog
+* Fri Jul 06 2007 Charlie Brady <charlie_brady@mitel.com> 1.14.0-8
+- Remove remnant DNS publication code and lexicon entries. [SME: 3135]
+
 * Sun Apr 29 2007 Shad L. Lords <slords@mail.com>
 - Clean up spec so package can be built by koji/plague
 
@@ -988,6 +992,7 @@ used to build the DNS and DHCP configuration.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+%patch5 -p1
 
 %build
 perl createlinks
