@@ -1,0 +1,29 @@
+diff -Nur -x '*.orig' -x '*.rej' e-smith-hosts-1.14.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/hostentries.pm mezzanine_patched_e-smith-hosts-1.14.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/hostentries.pm
+--- e-smith-hosts-1.14.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/hostentries.pm	2007-07-12 11:41:29.000000000 -0400
++++ mezzanine_patched_e-smith-hosts-1.14.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/hostentries.pm	2007-07-12 11:19:22.000000000 -0400
+@@ -439,12 +439,23 @@
+         $self->{cgi}->delete('ethernet_address');
+     }
+ 
++    if ($type eq "Local")
++    {
++        $self->{cgi}->delete('global_ip');
++    }
++
++    my %label_map = (
++	    global_ip => "IP_ADDRESS",
++	    local_ip => "IP_ADDRESS",
++	);
+     foreach my $f (qw( name domain hosttype local_ip global_ip
+     ethernet_address comment) ) {
+         my $val = $self->cgi->param($f) || '';
+         $self->debug_msg("looping on param $f, val is $val");
+-        print $q->Tr (esmith::cgi::genSmallCell($q, $self->localise(uc($f)),"normal"),
+-        esmith::cgi::genSmallCell($q, $val,"normal")) if $val;
++	next unless $val;
++	my $label = $label_map{$f} || uc($f);
++        print $q->Tr (esmith::cgi::genSmallCell($q, $self->localise($label),"normal"),
++        esmith::cgi::genSmallCell($q, $val,"normal"));
+     }
+ 
+     print qq(</table>);
