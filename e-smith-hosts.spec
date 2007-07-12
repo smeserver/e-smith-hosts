@@ -1,7 +1,7 @@
 Summary: e-smith module for managing hosts entries
 Name: e-smith-hosts
 %define version 1.14.0
-%define release 8
+%define release 10
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
@@ -14,6 +14,7 @@ Patch3: e-smith-hosts-1.14.0-success.patch
 Patch4: e-smith-hosts-1.14.0-thenumbers.patch
 Patch5: e-smith-hosts-1.14.0-no_global.patch
 Patch6: e-smith-hosts-1.14.0-no_global.patch2
+Patch7: e-smith-hosts-1.14.0-no_global.patch3
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base
 Requires: e-smith-lib >= 1.15.1-19
@@ -27,6 +28,9 @@ e-smith module to allow the configuration of the hosts database, which is
 used to build the DNS and DHCP configuration.
 
 %changelog
+* Thu Jul 12 2007 Charlie Brady <charlie_brady@mitel.com> 1.14.0-10
+- Remove implicit use of GLOBAL_IP lexicon entries. [SME: 3135]
+
 * Fri Jul 06 2007 Charlie Brady <charlie_brady@mitel.com> 1.14.0-9
 - Remove more remnant lexicon entries. [SME: 3135]
 
@@ -998,6 +1002,7 @@ used to build the DNS and DHCP configuration.
 %patch4 -p1
 %patch5 -p1
 %patch6 -p1
+%patch7 -p1
 
 %build
 perl createlinks
