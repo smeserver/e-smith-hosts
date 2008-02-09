@@ -1,0 +1,15 @@
+diff -Nur -x '*.orig' -x '*.rej' e-smith-hosts-1.14.0/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/hostentries mezzanine_patched_e-smith-hosts-1.14.0/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/hostentries
+--- e-smith-hosts-1.14.0/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/hostentries	2008-02-09 22:08:38.000000000 +1100
++++ mezzanine_patched_e-smith-hosts-1.14.0/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/hostentries	2008-02-09 22:07:30.000000000 +1100
+@@ -303,11 +303,6 @@
+         </trans>
+     </entry>
+     <entry>
+-        <base></base>
+-        <trans>
+-        </trans>
+-    </entry>
+-    <entry>
+         <base>LOCATION</base>
+         <trans>
+             Location
