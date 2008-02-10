@@ -1,7 +1,7 @@
 Summary: e-smith module for managing hosts entries
 Name: e-smith-hosts
 %define version 1.14.0
-%define release 11
+%define release 12
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
@@ -16,6 +16,7 @@ Patch5: e-smith-hosts-1.14.0-no_global.patch
 Patch6: e-smith-hosts-1.14.0-no_global.patch2
 Patch7: e-smith-hosts-1.14.0-no_global.patch3
 Patch8: e-smith-hosts-1.14.0-removeEmptyEntry.patch
+Patch9: e-smith-hosts-1.14.0-rmDuplicates.patch
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base
 Requires: e-smith-lib >= 1.15.1-19
@@ -29,6 +30,9 @@ e-smith module to allow the configuration of the hosts database, which is
 used to build the DNS and DHCP configuration.
 
 %changelog
+* Sun Feb 10 2008 Stephen Noble <support@dungog.net> 1.14.0-12
+- Remove duplicate <base> entries [SME: 3893]
+
 * Sat Feb 09 2008 Stephen Noble <support@dungog.net> 1.14.0-11
 - Remove empty lexicon entry [SME: 3880]
 
@@ -1008,6 +1012,7 @@ used to build the DNS and DHCP configuration.
 %patch6 -p1
 %patch7 -p1
 %patch8 -p1
+%patch9 -p1
 
 %build
 perl createlinks
