@@ -31,7 +31,7 @@ used to build the DNS and DHCP configuration.
 
 %changelog
 * Sun Feb 10 2008 Stephen Noble <support@dungog.net> 1.14.0-12
-- Remove duplicate <base> entries [SME: 3893]
+- Remove duplicate <base> entries [SME: 3895]
 
 * Sat Feb 09 2008 Stephen Noble <support@dungog.net> 1.14.0-11
 - Remove empty lexicon entry [SME: 3880]
