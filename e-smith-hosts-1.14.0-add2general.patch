@@ -1,0 +1,42 @@
+diff -Nur -x '*.orig' -x '*.rej' e-smith-hosts-1.14.0/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/hostentries mezzanine_patched_e-smith-hosts-1.14.0/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/hostentries
+--- e-smith-hosts-1.14.0/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/hostentries	2008-04-27 19:36:19.000000000 +0200
++++ mezzanine_patched_e-smith-hosts-1.14.0/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/hostentries	2008-04-27 19:34:35.000000000 +0200
+@@ -41,12 +41,6 @@
+         </trans>
+     </entry>
+     <entry>
+-        <base>IP_ADDRESS</base>
+-        <trans>
+-            IP Address
+-        </trans>
+-    </entry>
+-    <entry>
+         <base>ETHERNET_ADDRESS</base>
+         <trans>
+             Ethernet address
+@@ -194,12 +188,6 @@
+         </trans>
+     </entry>
+     <entry>
+-        <base>DOMAIN</base>
+-        <trans>
+-            Domain
+-        </trans>
+-    </entry>
+-    <entry>
+         <base>LOCAL_PAGE_DESCRIPTION</base>
+         <trans>
+             Please enter the following additional details for a local
+@@ -226,12 +214,6 @@
+         </trans>
+     </entry>
+     <entry>
+-        <base>LOCATION</base>
+-        <trans>
+-            Location
+-        </trans>
+-    </entry>
+-    <entry>
+         <base>REMOVE_PAGE_DESCRIPTION</base>
+         <trans>
+             <![CDATA[
