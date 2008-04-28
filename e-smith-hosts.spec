@@ -32,7 +32,7 @@ used to build the DNS and DHCP configuration.
 
 %changelog
 * Sun Apr 27 2008 Jonathan Martens <smeserver-contribs@snetram.nl> 1.14.0-13
-- Add common <base> tags to e-smith-formmagick's general
+- Add common <base> tags to e-smith-formmagick's general [SME: 4280]
 
 * Sun Feb 10 2008 Stephen Noble <support@dungog.net> 1.14.0-12
 - Remove duplicate <base> entries [SME: 3895]
