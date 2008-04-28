@@ -22,6 +22,7 @@ BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base
 Requires: e-smith-lib >= 1.15.1-19
 Requires: e-smith-test >= 0.1.14
+Requires: e-smith-formmagick >= 1.4.0-12
 BuildRequires: e-smith-devtools
 BuildArchitectures: noarch
 AutoReqProv: no
