@@ -1,7 +1,7 @@
 Summary: e-smith module for managing hosts entries
 Name: e-smith-hosts
 %define version 1.14.0
-%define release 13
+%define release 14
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
@@ -18,6 +18,7 @@ Patch7: e-smith-hosts-1.14.0-no_global.patch3
 Patch8: e-smith-hosts-1.14.0-removeEmptyEntry.patch
 Patch9: e-smith-hosts-1.14.0-rmDuplicates.patch
 Patch10: e-smith-hosts-1.14.0-add2general.patch
+Patch11: e-smith-hosts-1.14.0-hosttype.patch
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base
 Requires: e-smith-lib >= 1.15.1-19
@@ -32,6 +33,9 @@ e-smith module to allow the configuration of the hosts database, which is
 used to build the DNS and DHCP configuration.
 
 %changelog
+* Tue Jul 8 2008 Jonathan Martens <smeserver-contribs@snetram.nl> 1.14.0-14
+- Move single occurence HOSTTYPE back to e-smith-hosts
+
 * Sun Apr 27 2008 Jonathan Martens <smeserver-contribs@snetram.nl> 1.14.0-13
 - Add common <base> tags to e-smith-formmagick's general [SME: 4280]
 
@@ -1019,6 +1023,7 @@ used to build the DNS and DHCP configuration.
 %patch8 -p1
 %patch9 -p1
 %patch10 -p1
+%patch11 -p1
 
 %build
 perl createlinks
