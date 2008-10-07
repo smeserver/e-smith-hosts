@@ -1,24 +1,14 @@
+# $Id: e-smith-hosts.spec,v 1.9 2008/10/07 18:27:57 slords Exp $
+
 Summary: e-smith module for managing hosts entries
 Name: e-smith-hosts
-%define version 1.14.0
-%define release 14
+%define version 2.0.0
+%define release 1
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
 Group: Networking/Daemons
 Source: %{name}-%{version}.tar.gz
-Patch0: e-smith-hosts-1.14.0-hostentriesformatting.patch
-Patch1: e-smith-hosts-1.14.0-hostentriesformatting.patch2
-Patch2: e-smith-hosts-1.14.0-comment.patch
-Patch3: e-smith-hosts-1.14.0-success.patch
-Patch4: e-smith-hosts-1.14.0-thenumbers.patch
-Patch5: e-smith-hosts-1.14.0-no_global.patch
-Patch6: e-smith-hosts-1.14.0-no_global.patch2
-Patch7: e-smith-hosts-1.14.0-no_global.patch3
-Patch8: e-smith-hosts-1.14.0-removeEmptyEntry.patch
-Patch9: e-smith-hosts-1.14.0-rmDuplicates.patch
-Patch10: e-smith-hosts-1.14.0-add2general.patch
-Patch11: e-smith-hosts-1.14.0-hosttype.patch
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base
 Requires: e-smith-lib >= 1.15.1-19
@@ -33,6 +23,9 @@ e-smith module to allow the configuration of the hosts database, which is
 used to build the DNS and DHCP configuration.
 
 %changelog
+* Tue Oct 7 2008 Shad L. Lords <slords@mail.com> 2.0.0-1.sme
+- Roll new stream to separate sme7/sme8 trees [SME: 4633]
+
 * Tue Jul 8 2008 Jonathan Martens <smeserver-contribs@snetram.nl> 1.14.0-14
 - Move single occurence HOSTTYPE back to e-smith-hosts
 
@@ -1012,18 +1005,6 @@ used to build the DNS and DHCP configuration.
 
 %prep
 %setup
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
-%patch5 -p1
-%patch6 -p1
-%patch7 -p1
-%patch8 -p1
-%patch9 -p1
-%patch10 -p1
-%patch11 -p1
 
 %build
 perl createlinks
