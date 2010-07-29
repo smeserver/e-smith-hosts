@@ -1,19 +1,21 @@
-# $Id: e-smith-hosts.spec,v 1.9 2008/10/07 18:27:57 slords Exp $
+# $Id: e-smith-hosts.spec,v 1.10 2010/07/29 14:27:43 filippocarletti Exp $
 
 Summary: e-smith module for managing hosts entries
 Name: e-smith-hosts
 %define version 2.2.0
-%define release 1
+%define release 2
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
 Group: Networking/Daemons
 Source: %{name}-%{version}.tar.gz
+Patch1: e-smith-hosts-2.2.0_allow_cname.patch
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base
 Requires: e-smith-lib >= 1.15.1-19
 Requires: e-smith-test >= 0.1.14
 Requires: e-smith-formmagick >= 1.4.0-12
+Requires: e-smith-tinydns >= 2.2.0-2
 BuildRequires: e-smith-devtools
 BuildArchitectures: noarch
 AutoReqProv: no
@@ -23,6 +25,9 @@ e-smith module to allow the configuration of the hosts database, which is
 used to build the DNS and DHCP configuration.
 
 %changelog
+* Thu Jul 29 2010 Filippo Carletti <filippo.carletti@gmail.com> 2.2.0-2.sme
+- Allow use of CNAME in remote hosts [SME: 3132]
+
 * Tue Oct 7 2008 Shad L. Lords <slords@mail.com> 2.2.0-1.sme
 - Roll new stream to separate sme7/sme8 trees [SME: 4633]
 
@@ -1005,6 +1010,7 @@ used to build the DNS and DHCP configuration.
 
 %prep
 %setup
+%patch1 -p1
 
 %build
 perl createlinks

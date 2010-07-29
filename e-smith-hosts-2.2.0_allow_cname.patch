@@ -1,0 +1,12 @@
+diff -Naur e-smith-hosts-2.2.0-orig/root/etc/e-smith/web/functions/hostentries e-smith-hosts-2.2.0/root/etc/e-smith/web/functions/hostentries
+--- e-smith-hosts-2.2.0-orig/root/etc/e-smith/web/functions/hostentries	2008-10-07 19:35:50.000000000 +0200
++++ e-smith-hosts-2.2.0/root/etc/e-smith/web/functions/hostentries	2010-07-29 15:33:13.311858391 +0200
+@@ -122,7 +122,7 @@
+     </page>
+     <page name="Remote" pre-event="turn_off_buttons()" post-event="goto_confirm()">
+         <description>REMOTE_PAGE_DESCRIPTION</description>
+-        <field type="text" id="global_ip" validation="ip_number">
++        <field type="text" id="global_ip">
+             <label>IP_ADDRESS</label>
+         </field>
+         <subroutine src="print_button('NEXT')" />
