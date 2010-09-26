@@ -1,0 +1,84 @@
+diff -ruN e-smith-hosts-2.2.0.a/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/hostentries e-smith-hosts-2.2.0/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/hostentries
+--- e-smith-hosts-2.2.0.a/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/hostentries	2010-09-26 12:02:31.000000000 -0600
++++ e-smith-hosts-2.2.0/root/etc/e-smith/locale/en-us/etc/e-smith/web/functions/hostentries	2008-10-07 11:35:50.000000000 -0600
+@@ -267,4 +267,8 @@
+         <trans>Error: This IP address is not on any of our local
+             networks.</trans>
+     </entry>
++    <entry>
++        <base>MUST_BE_VALID_HOSTNAME_OR_IP</base>
++        <trans>Must be a valid hostname or IP number</trans>
++    </entry>
+ </lexicon>
+diff -up e-smith-hosts-2.2.0/root/etc/e-smith/web/functions/hostentries.host_ip_validator e-smith-hosts-2.2.0/root/etc/e-smith/web/functions/hostentries
+--- e-smith-hosts-2.2.0/root/etc/e-smith/web/functions/hostentries.host_ip_validator	2010-09-26 12:06:12.000000000 -0600
++++ e-smith-hosts-2.2.0/root/etc/e-smith/web/functions/hostentries	2010-09-26 12:06:35.000000000 -0600
+@@ -122,7 +122,7 @@
+     </page>
+     <page name="Remote" pre-event="turn_off_buttons()" post-event="goto_confirm()">
+         <description>REMOTE_PAGE_DESCRIPTION</description>
+-        <field type="text" id="global_ip">
++        <field type="text" id="global_ip" validation="hostname_or_ip">
+             <label>IP_ADDRESS</label>
+         </field>
+         <subroutine src="print_button('NEXT')" />
+diff -up e-smith-hosts-2.2.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/hostentries.pm.host_ip_validator e-smith-hosts-2.2.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/hostentries.pm
+--- e-smith-hosts-2.2.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/hostentries.pm.host_ip_validator	2008-10-07 11:35:50.000000000 -0600
++++ e-smith-hosts-2.2.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/hostentries.pm	2010-09-26 12:01:45.000000000 -0600
+@@ -52,6 +52,7 @@ our @EXPORT = qw(
+     print_save_or_add_button
+     not_taken
+     must_be_local
++    hostname_or_ip
+ );
+ 
+ our $VERSION = sprintf '%d.%03d', q$Revision: 1.54 $ =~ /: (\d+).(\d+)/;
+@@ -103,6 +104,48 @@ sub new 
+     return $self;
+ }
+ 
++=head2 hostname_or_ip
++
++Validation routine for the remote address field for network printers.
++
++=for testing
++my $fm = esmith::FormMagick::Panel::hostentries->new();
++can_ok('main', 'hostname_or_ip');
++can_ok('CGI::FormMagick::Validator', 'ip_number');
++isnt(CGI::FormMagick::Validator::ip_number($fm, '1.2.3'), "OK", "ip_number works OK");
++like(CGI::FormMagick::Validator::ip_number($fm, '1.2.3'), qr(enough octets), "ip_number works OK");
++foreach ("1.2.3.4", "255.255.255.255", "foo.com", "foo.bar.com", "123.foo.xxx"){
++    is(hostname_or_ip($fm, $_), "OK", "$_ should be OK");
++}
++foreach ("1.2.3", "foo bar", "foo;bar;com", " ", undef) {
++    isnt(hostname_or_ip($fm, $_), "OK", "$_ should not be OK");
++}
++
++=cut
++
++sub hostname_or_ip
++{
++    my ($fm, $data) = @_;
++    if ($data =~ /^[\d\.]+$/) {
++        if (CGI::FormMagick::Validator::ip_number($fm, $data) eq "OK")
++        {
++            return "OK";
++        }
++        else
++        {
++            return "MUST_BE_VALID_HOSTNAME_OR_IP";
++        }
++    }
++    elsif ($data =~ /^([a-zA-Z0-9\.\-]+)$/ )
++    {
++        return "OK";
++    }
++    else
++    {
++        return "MUST_BE_VALID_HOSTNAME_OR_IP";
++    }
++}
++
+ =head1 HTML GENERATION ROUTINES
+ 
+ Routines for generating chunks of HTML needed by the panel.
