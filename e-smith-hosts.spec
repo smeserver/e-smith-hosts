@@ -1,9 +1,9 @@
-# $Id: e-smith-hosts.spec,v 1.11 2010/09/26 18:15:08 slords Exp $
+# $Id: e-smith-hosts.spec,v 1.12 2010/09/26 19:04:49 slords Exp $
 
 Summary: e-smith module for managing hosts entries
 Name: e-smith-hosts
 %define version 2.2.0
-%define release 2
+%define release 3
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
