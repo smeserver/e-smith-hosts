@@ -1,4 +1,4 @@
-# $Id: e-smith-hosts.spec,v 1.10 2010/07/29 14:27:43 filippocarletti Exp $
+# $Id: e-smith-hosts.spec,v 1.11 2010/09/26 18:15:08 slords Exp $
 
 Summary: e-smith module for managing hosts entries
 Name: e-smith-hosts
@@ -10,6 +10,7 @@ License: GPL
 Group: Networking/Daemons
 Source: %{name}-%{version}.tar.gz
 Patch1: e-smith-hosts-2.2.0_allow_cname.patch
+Patch2: e-smith-hosts-2.2.0-host_ip_validator.patch
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base
 Requires: e-smith-lib >= 1.15.1-19
@@ -25,6 +26,9 @@ e-smith module to allow the configuration of the hosts database, which is
 used to build the DNS and DHCP configuration.
 
 %changelog
+* Sun Sep 25 2010 Shad L. Lords <slords@mail.com> 2.2.0-3.sme
+- Add validator back for ip or cname entry [SME: 3132]
+
 * Thu Jul 29 2010 Filippo Carletti <filippo.carletti@gmail.com> 2.2.0-2.sme
 - Allow use of CNAME in remote hosts [SME: 3132]
 
@@ -1011,6 +1015,7 @@ used to build the DNS and DHCP configuration.
 %prep
 %setup
 %patch1 -p1
+%patch2 -p1
 
 %build
 perl createlinks
