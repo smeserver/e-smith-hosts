@@ -1,9 +1,9 @@
-# $Id: e-smith-hosts.spec,v 1.12 2010/09/26 19:04:49 slords Exp $
+# $Id: e-smith-hosts.spec,v 1.13 2010/10/14 17:58:56 slords Exp $
 
 Summary: e-smith module for managing hosts entries
 Name: e-smith-hosts
 %define version 2.2.0
-%define release 3
+%define release 4
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
@@ -11,6 +11,7 @@ Group: Networking/Daemons
 Source: %{name}-%{version}.tar.gz
 Patch1: e-smith-hosts-2.2.0_allow_cname.patch
 Patch2: e-smith-hosts-2.2.0-host_ip_validator.patch
+Patch3: e-smith-hosts-2.2.0-trap_croak.patch
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base
 Requires: e-smith-lib >= 1.15.1-19
@@ -26,6 +27,9 @@ e-smith module to allow the configuration of the hosts database, which is
 used to build the DNS and DHCP configuration.
 
 %changelog
+* Sun Sep 25 2010 Shad L. Lords <slords@mail.com> 2.2.0-4.sme
+- Trap croak inside Net::IPv4Addr::ipv4_in_network [SME: 6288]
+
 * Sun Sep 25 2010 Shad L. Lords <slords@mail.com> 2.2.0-3.sme
 - Add validator back for ip or cname entry [SME: 3132]
 
@@ -1016,6 +1020,7 @@ used to build the DNS and DHCP configuration.
 %setup
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
 perl createlinks

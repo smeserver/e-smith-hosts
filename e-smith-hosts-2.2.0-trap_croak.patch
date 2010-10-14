@@ -1,0 +1,12 @@
+diff -up e-smith-hosts-2.2.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/hostentries.pm.trap_croak e-smith-hosts-2.2.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/hostentries.pm
+--- e-smith-hosts-2.2.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/hostentries.pm.trap_croak	2010-10-14 11:05:18.000000000 -0600
++++ e-smith-hosts-2.2.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/hostentries.pm	2010-10-14 11:57:35.000000000 -0600
+@@ -717,7 +717,7 @@ sub must_be_local
+     foreach my $spec (@local_list)
+     {
+         next if $spec eq '127.0.0.1';
+-        if (Net::IPv4Addr::ipv4_in_network($spec, $localip))
++        if (eval{Net::IPv4Addr::ipv4_in_network($spec, $localip)})
+         {
+             return 'OK';
+         }
