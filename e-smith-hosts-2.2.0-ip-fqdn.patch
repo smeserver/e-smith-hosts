@@ -1,0 +1,12 @@
+diff -up e-smith-hosts-2.2.0/root/etc/e-smith/web/functions/hostentries.ip-fqdn e-smith-hosts-2.2.0/root/etc/e-smith/web/functions/hostentries
+--- e-smith-hosts-2.2.0/root/etc/e-smith/web/functions/hostentries.ip-fqdn	2010-10-19 19:59:51.000000000 +0200
++++ e-smith-hosts-2.2.0/root/etc/e-smith/web/functions/hostentries	2010-10-19 20:00:23.000000000 +0200
+@@ -123,7 +123,7 @@ __DATA__
+     <page name="Remote" pre-event="turn_off_buttons()" post-event="goto_confirm()">
+         <description>REMOTE_PAGE_DESCRIPTION</description>
+         <field type="text" id="global_ip" validation="hostname_or_ip">
+-            <label>IP_ADDRESS</label>
++            <label>IP_ADDRESS_OR_FQDN</label>
+         </field>
+         <subroutine src="print_button('NEXT')" />
+     </page>
