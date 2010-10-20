@@ -1,4 +1,4 @@
-# $Id: e-smith-hosts.spec,v 1.15 2010/10/20 17:39:34 snetram Exp $
+# $Id: e-smith-hosts.spec,v 1.16 2010/10/20 17:42:43 snetram Exp $
 
 Summary: e-smith module for managing hosts entries
 Name: e-smith-hosts
@@ -30,7 +30,7 @@ used to build the DNS and DHCP configuration.
 
 %changelog
 * Wed Oct 20 2010 Jonathan Martens <smeserver-contribs@snetram.nl> 2.2.0-6.sme
-- Update some more occurences to also reflect the option of a FQDN [SME: 6296]
+- Update some more occurrences to also reflect the option of a FQDN [SME: 6296]
 
 * Tue Oct 19 2010 Jonathan Martens <smeserver-contribs@snetram.nl> 2.2.0-5.sme
 - Update textbox description to also reflect the option of a FQDN [SME: 6296]
