@@ -1,9 +1,9 @@
-# $Id: e-smith-hosts.spec,v 1.14 2010/10/19 18:03:09 snetram Exp $
+# $Id: e-smith-hosts.spec,v 1.15 2010/10/20 17:39:34 snetram Exp $
 
 Summary: e-smith module for managing hosts entries
 Name: e-smith-hosts
 %define version 2.2.0
-%define release 5
+%define release 6
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
@@ -13,6 +13,7 @@ Patch1: e-smith-hosts-2.2.0_allow_cname.patch
 Patch2: e-smith-hosts-2.2.0-host_ip_validator.patch
 Patch3: e-smith-hosts-2.2.0-trap_croak.patch
 Patch4: e-smith-hosts-2.2.0-ip-fqdn.patch
+Patch5: e-smith-hosts-2.2.0-ip-fqdn2.patch
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base
 Requires: e-smith-lib >= 1.15.1-19
@@ -28,6 +29,9 @@ e-smith module to allow the configuration of the hosts database, which is
 used to build the DNS and DHCP configuration.
 
 %changelog
+* Wed Oct 20 2010 Jonathan Martens <smeserver-contribs@snetram.nl> 2.2.0-6.sme
+- Update some more occurences to also reflect the option of a FQDN [SME: 6296]
+
 * Tue Oct 19 2010 Jonathan Martens <smeserver-contribs@snetram.nl> 2.2.0-5.sme
 - Update textbox description to also reflect the option of a FQDN [SME: 6296]
 
@@ -1026,6 +1030,7 @@ used to build the DNS and DHCP configuration.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+%patch5 -p1
 
 %build
 perl createlinks

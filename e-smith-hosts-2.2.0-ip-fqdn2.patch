@@ -1,0 +1,21 @@
+diff -up e-smith-hosts-2.2.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/hostentries.pm.ip-fqdn2 e-smith-hosts-2.2.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/hostentries.pm
+--- e-smith-hosts-2.2.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/hostentries.pm.ip-fqdn2	2010-10-20 19:29:37.000000000 +0200
++++ e-smith-hosts-2.2.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/hostentries.pm	2010-10-20 19:35:18.000000000 +0200
+@@ -193,7 +193,7 @@ sub print_hosts_tables
+             print $q->start_Tr,"<td>\n",$q->start_table ({-CLASS => "sme-border"}),"\n";
+             print $q->Tr (esmith::cgi::genSmallCell($q, $self->localise('HOSTNAME'),"header"),
+             esmith::cgi::genSmallCell($q, $self->localise('LOCATION'),"header"),
+-            esmith::cgi::genSmallCell($q, $self->localise('IP_ADDRESS'),"header"),
++            esmith::cgi::genSmallCell($q, $self->localise('IP_ADDRESS_OR_FQDN'),"header"),
+             esmith::cgi::genSmallCell($q, $self->localise('ETHERNET_ADDRESS'),"header"),
+             esmith::cgi::genSmallCell($q, $self->localise('COMMENT'),"header"),
+             esmith::cgi::genSmallCell($q, $self->localise('ACTION'),"header",2));
+@@ -488,7 +488,7 @@ sub print_confirmation_details {
+     }
+ 
+     my %label_map = (
+-	    global_ip => "IP_ADDRESS",
++	    global_ip => "IP_ADDRESS_OR_FQDN",
+ 	    local_ip => "IP_ADDRESS",
+ 	);
+     foreach my $f (qw( name domain hosttype local_ip global_ip
