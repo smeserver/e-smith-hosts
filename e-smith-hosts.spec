@@ -1,9 +1,9 @@
-# $Id: e-smith-hosts.spec,v 1.16 2010/10/20 17:42:43 snetram Exp $
+# $Id: e-smith-hosts.spec,v 1.17 2010/11/29 08:36:41 snetram Exp $
 
 Summary: e-smith module for managing hosts entries
 Name: e-smith-hosts
 %define version 2.2.0
-%define release 6
+%define release 7
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
@@ -14,6 +14,7 @@ Patch2: e-smith-hosts-2.2.0-host_ip_validator.patch
 Patch3: e-smith-hosts-2.2.0-trap_croak.patch
 Patch4: e-smith-hosts-2.2.0-ip-fqdn.patch
 Patch5: e-smith-hosts-2.2.0-ip-fqdn2.patch
+Patch6: e-smith-hosts-2.2.0-fix-speechmarks.patch
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base
 Requires: e-smith-lib >= 1.15.1-19
@@ -29,6 +30,9 @@ e-smith module to allow the configuration of the hosts database, which is
 used to build the DNS and DHCP configuration.
 
 %changelog
+* Mon Nov 29 2010 Jonathan Martens <smeserver-contribs@snetram.nl> 2.2.0-7.sme
+- Fix double speechmarks in comment field in hostname panel [SME: 6408]
+
 * Wed Oct 20 2010 Jonathan Martens <smeserver-contribs@snetram.nl> 2.2.0-6.sme
 - Update some more occurrences to also reflect the option of a FQDN [SME: 6296]
 
@@ -1031,6 +1035,7 @@ used to build the DNS and DHCP configuration.
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
+%patch6 -p1
 
 %build
 perl createlinks
