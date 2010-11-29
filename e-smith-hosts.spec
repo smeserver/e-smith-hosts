@@ -1,4 +1,4 @@
-# $Id: e-smith-hosts.spec,v 1.11 2010/11/29 08:43:09 snetram Exp $
+# $Id: e-smith-hosts.spec,v 1.12 2010/11/29 08:48:09 snetram Exp $
 
 Summary: e-smith module for managing hosts entries
 Name: e-smith-hosts
@@ -1009,7 +1009,7 @@ used to build the DNS and DHCP configuration.
 
 %prep
 %setup
-%patch0 -p1
+#%patch0 -p1
 
 %build
 perl createlinks

@@ -1,7 +1,7 @@
-diff -up e-smith-hosts-2.2.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/hostentries.pm.fix-speechmarks e-smith-hosts-2.2.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/hostentries.pm
---- e-smith-hosts-2.2.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/hostentries.pm.fix-speechmarks	2010-11-29 09:24:40.000000000 +0100
-+++ e-smith-hosts-2.2.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/hostentries.pm	2010-11-29 09:35:31.000000000 +0100
-@@ -271,7 +271,7 @@ like($_STDOUT_, qr(<td>foo</td>), "print
+diff -up e-smith-hosts-2.0.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/hostentries.pm.fix-speechmarks e-smith-hosts-2.0.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/hostentries.pm
+--- e-smith-hosts-2.0.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/hostentries.pm.fix-speechmarks	2008-10-07 19:35:49.000000000 +0200
++++ e-smith-hosts-2.0.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/hostentries.pm	2010-11-29 09:48:22.000000000 +0100
+@@ -228,7 +228,7 @@ like($_STDOUT_, qr(<td>foo</td>), "print
  sub print_td
  {
      my ($self, $value) = @_;
