@@ -1,4 +1,4 @@
-# $Id: e-smith-hosts.spec,v 1.10 2010/11/29 08:41:59 snetram Exp $
+# $Id: e-smith-hosts.spec,v 1.11 2010/11/29 08:43:09 snetram Exp $
 
 Summary: e-smith module for managing hosts entries
 Name: e-smith-hosts
@@ -24,7 +24,7 @@ e-smith module to allow the configuration of the hosts database, which is
 used to build the DNS and DHCP configuration.
 
 %changelog
-* Mon Nov 29 2010 Jonathan Martens <smeserver-contribs@snetram.nl> 2.2.0-2.sme
+* Mon Nov 29 2010 Jonathan Martens <smeserver-contribs@snetram.nl> 2.0.0-2.sme
 - Fix double speechmarks in comment field in hostname panel [SME: 6409]
 
 * Tue Oct 7 2008 Shad L. Lords <slords@mail.com> 2.0.0-1.sme
