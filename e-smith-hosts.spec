@@ -1,4 +1,4 @@
-# $Id: e-smith-hosts.spec,v 1.18 2010/11/29 17:20:24 snetram Exp $
+# $Id: e-smith-hosts.spec,v 1.19 2010/11/29 17:35:51 slords Exp $
 
 Summary: e-smith module for managing hosts entries
 Name: e-smith-hosts
@@ -14,7 +14,7 @@ Patch2: e-smith-hosts-2.2.0-host_ip_validator.patch
 Patch3: e-smith-hosts-2.2.0-trap_croak.patch
 Patch4: e-smith-hosts-2.2.0-ip-fqdn.patch
 Patch5: e-smith-hosts-2.2.0-ip-fqdn2.patch
-Patch6: e-smith-hosts-2.2.0-fix-speechmarks2.patch
+Patch6: e-smith-hosts-2.2.0-fix-comment.patch
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base
 Requires: e-smith-lib >= 1.15.1-19
@@ -30,8 +30,8 @@ e-smith module to allow the configuration of the hosts database, which is
 used to build the DNS and DHCP configuration.
 
 %changelog
-* Mon Nov 29 2010 Jonathan Martens <smeserver-contribs@snetram.nl> 2.2.0-8.sme
-- Rework previous fix and escape comment field in server-manager forms [SME: 6408]
+* Mon Nov 29 2010 Shad L. Lords <slords@mail.com> 2.2.0-8.sme
+- Sanitize comment field in tables and edit form [SME: 6408]
 
 * Mon Nov 29 2010 Jonathan Martens <smeserver-contribs@snetram.nl> 2.2.0-7.sme
 - Fix double speechmarks in comment field in hostname panel [SME: 6408]

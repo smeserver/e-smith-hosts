@@ -1,0 +1,38 @@
+diff -up e-smith-hosts-2.2.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/hostentries.pm.fix-comment e-smith-hosts-2.2.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/hostentries.pm
+--- e-smith-hosts-2.2.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/hostentries.pm.fix-comment	2010-11-29 10:15:23.000000000 -0700
++++ e-smith-hosts-2.2.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/hostentries.pm	2010-11-29 10:17:04.000000000 -0700
+@@ -33,6 +33,7 @@ use File::Basename;
+ use Exporter;
+ use Carp;
+ use Net::IPv4Addr;
++use HTML::Entities;
+ 
+ our @ISA = qw(esmith::FormMagick Exporter);
+ 
+@@ -245,7 +246,7 @@ sub print_host_row 
+     $self->print_td($self->localise($host_record->prop('HostType')) || "&nbsp;");
+     $self->print_td($ip);
+     $self->print_td($host_record->prop('MACAddress') || "&nbsp;");
+-    $self->print_td($host_record->prop('Comment') || "&nbsp;");
++    $self->print_td(HTML::Entities::encode($host_record->prop('Comment')) || "&nbsp;");
+     my $static = $host_record->prop('static') || "no";
+     if ($static ne 'yes') {
+         my $propstring = $self->build_host_cgi_params($host_record->key(), $host_record->props());
+@@ -289,7 +290,7 @@ sub build_host_cgi_params {
+         global_ip        => $oldprops{ExternalIP},
+         ethernet_address => $oldprops{MACAddress},
+         hosttype         => $oldprops{HostType},
+-        comment          => $oldprops{Comment},
++        comment          => HTML::Entities::encode($oldprops{Comment}),
+     );
+ 
+     return $self->props_to_query_string(\%props);
+@@ -498,7 +499,7 @@ sub print_confirmation_details {
+ 	next unless $val;
+ 	my $label = $label_map{$f} || uc($f);
+         print $q->Tr (esmith::cgi::genSmallCell($q, $self->localise($label),"normal"),
+-        esmith::cgi::genSmallCell($q, $val,"normal"));
++        esmith::cgi::genSmallCell($q, HTML::Entities::encode($val),"normal"));
+     }
+ 
+     print qq(</table>);
