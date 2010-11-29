@@ -1,14 +1,15 @@
-# $Id: e-smith-hosts.spec,v 1.9 2008/10/07 18:27:57 slords Exp $
+# $Id: e-smith-hosts.spec,v 1.10 2010/11/29 08:41:59 snetram Exp $
 
 Summary: e-smith module for managing hosts entries
 Name: e-smith-hosts
 %define version 2.0.0
-%define release 1
+%define release 2
 Version: %{version}
 Release: %{release}%{?dist}
 License: GPL
 Group: Networking/Daemons
 Source: %{name}-%{version}.tar.gz
+Patch0: e-smith-hosts-2.0.0-fix-speechmarks.patch
 BuildRoot: /var/tmp/%{name}-%{version}-%{release}-buildroot
 Requires: e-smith-base
 Requires: e-smith-lib >= 1.15.1-19
@@ -23,6 +24,9 @@ e-smith module to allow the configuration of the hosts database, which is
 used to build the DNS and DHCP configuration.
 
 %changelog
+* Mon Nov 29 2010 Jonathan Martens <smeserver-contribs@snetram.nl> 2.2.0-2.sme
+- Fix double speechmarks in comment field in hostname panel [SME: 6409]
+
 * Tue Oct 7 2008 Shad L. Lords <slords@mail.com> 2.0.0-1.sme
 - Roll new stream to separate sme7/sme8 trees [SME: 4633]
 
@@ -1005,6 +1009,7 @@ used to build the DNS and DHCP configuration.
 
 %prep
 %setup
+%patch0 -p1
 
 %build
 perl createlinks
