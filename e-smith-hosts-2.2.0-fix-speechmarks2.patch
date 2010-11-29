@@ -1,0 +1,29 @@
+diff -up e-smith-hosts-2.2.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/hostentries.pm.fix-speechmark e-smith-hosts-2.2.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/hostentries.pm
+--- e-smith-hosts-2.2.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/hostentries.pm.fix-speechmark	2010-11-29 18:05:49.000000000 +0100
++++ e-smith-hosts-2.2.0/root/usr/lib/perl5/site_perl/esmith/FormMagick/Panel/hostentries.pm	2010-11-29 18:10:36.000000000 +0100
+@@ -33,6 +33,7 @@ use File::Basename;
+ use Exporter;
+ use Carp;
+ use Net::IPv4Addr;
++use HTML::Entities;
+ 
+ our @ISA = qw(esmith::FormMagick Exporter);
+ 
+@@ -245,7 +246,7 @@ sub print_host_row 
+     $self->print_td($self->localise($host_record->prop('HostType')) || "&nbsp;");
+     $self->print_td($ip);
+     $self->print_td($host_record->prop('MACAddress') || "&nbsp;");
+-    $self->print_td($host_record->prop('Comment') || "&nbsp;");
++    $self->print_td(encode_entities($host_record->prop('Comment')) || "&nbsp;");
+     my $static = $host_record->prop('static') || "no";
+     if ($static ne 'yes') {
+         my $propstring = $self->build_host_cgi_params($host_record->key(), $host_record->props());
+@@ -289,7 +290,7 @@ sub build_host_cgi_params {
+         global_ip        => $oldprops{ExternalIP},
+         ethernet_address => $oldprops{MACAddress},
+         hosttype         => $oldprops{HostType},
+-        comment          => $oldprops{Comment},
++        comment          => encode_entities($oldprops{Comment}),
+     );
+ 
+     return $self->props_to_query_string(\%props);
